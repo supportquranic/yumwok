@@ -57,6 +57,10 @@
         }
     </script>
     
+    <!-- Supabase JS SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
+    
     <style>
         * {
             -webkit-tap-highlight-color: transparent;
@@ -794,7 +798,7 @@
                 { id: 'appetizers', name: 'Appetizers', badge: 'Crispy Tempura & Wings' },
                 { id: 'noodles', name: 'Noodles', badge: 'Wok Chowmein' },
                 { id: 'rice', name: 'Rice', badge: 'Fried & Masala' },
-                { id: 'main_course', name: 'Main Course', badge: 'Served with Rice/Chowmein' }
+                { id: 'main_course', name: 'Main Course', badge: 'Served with Fried Rice' }
             ],
             
             items: [
@@ -803,7 +807,7 @@
                     id: 'hot_sour_soup',
                     category: 'soup',
                     name: 'Hot & Sour Soup',
-                    desc: 'Traditional spicy and tangy Asian soup loaded with chicken shreds, egg blossoms & mushrooms.',
+                    desc: 'Chinese style simmered chicken soup featuring a spicy and tangy flavor.',
                     image: 'images/hot_sour_soup.jpg',
                     isPopular: false,
                     type: 'size_variant',
@@ -816,7 +820,7 @@
                     id: 'chicken_corn_soup',
                     category: 'soup',
                     name: 'Chicken Corn Soup',
-                    desc: 'Classic comforting soup with sweet corn kernels, tender shredded chicken & egg drops.',
+                    desc: 'Chinese style simmered tender chicken soup featuring a comforting flavor and silky texture.',
                     image: 'images/chicken_corn_soup.jpg',
                     isPopular: false,
                     type: 'size_variant',
@@ -829,7 +833,7 @@
                     id: 'szechuan_soup',
                     category: 'soup',
                     name: 'Szechuan Soup',
-                    desc: 'Fiery and bold Szechuan broth infused with oriental chili oil, chicken, and fresh Asian herbs.',
+                    desc: 'Chinese style simmered soup featuring a bold, savory, and spicy flavor profile.',
                     image: 'images/szechuan_soup.jpg',
                     isPopular: false,
                     type: 'size_variant',
@@ -842,7 +846,7 @@
                     id: 'thai_clear_soup',
                     category: 'soup',
                     name: 'Thai Clear Soup',
-                    desc: 'Aromatic light Thai clear soup flavored with lemongrass, galangal, fresh herbs & chicken.',
+                    desc: 'Thai style clear broth soup featuring light, aromatic herbs and a savory, refreshing flavor.',
                     image: 'images/thai_clear_soup.jpg',
                     isPopular: false,
                     type: 'size_variant',
@@ -855,7 +859,7 @@
                     id: 'wok_special_soup',
                     category: 'soup',
                     name: 'WOK Special Soup',
-                    desc: 'Chef’s signature rich Pan-Asian soup packed with chicken, prawns, black mushrooms & exotic spices.',
+                    desc: 'Special Asian style simmered soup featuring a rich, comforting light broth loaded with fresh ingredients and savory flavor.',
                     image: 'images/wok_special_soup.jpg',
                     isPopular: false,
                     type: 'size_variant',
@@ -870,7 +874,7 @@
                     id: 'chicken_tempura',
                     category: 'appetizers',
                     name: 'Chicken Tempura',
-                    desc: 'Golden crispy Japanese style battered chicken strips served with special dipping sauce.',
+                    desc: 'Crispy deep-fried chicken strips coated in a light, airy tempura batter with a savory flavor.',
                     price: 650,
                     image: 'images/chicken_tempura.jpg',
                     isPopular: false,
@@ -880,7 +884,7 @@
                     id: 'honey_glazed_wings',
                     category: 'appetizers',
                     name: 'Honey Glazed Wings (5pcs)',
-                    desc: '5 pieces of succulent fried wings coated in sweet, spicy, and sticky honey chili glaze.',
+                    desc: 'Pan Asian style crispy fried chicken wings featuring a savory and mildly sweet honey glaze.',
                     price: 650,
                     image: 'images/honey_glazed_wings.jpg',
                     isPopular: false,
@@ -890,7 +894,7 @@
                     id: 'tempura_prawns',
                     category: 'appetizers',
                     name: 'Tempura Prawns (5pcs)',
-                    desc: '5 pieces of jumbo prawns deep fried to light golden perfection in airy tempura batter.',
+                    desc: 'Crispy deep-fried prawns coated in a traditional light tempura batter featuring a delicate savory taste.',
                     price: 1000,
                     image: 'images/tempura_prawns.jpg',
                     isPopular: false,
@@ -900,7 +904,7 @@
                     id: 'chicken_momos',
                     category: 'appetizers',
                     name: 'Chicken Momos (6pcs)',
-                    desc: '6 pieces of authentic steamed Asian dumplings stuffed with seasoned minced chicken & herbs.',
+                    desc: 'Asian style steamed chicken dumplings featuring a savory flavor and tender texture.',
                     price: 400,
                     image: 'images/chicken_momos.jpg',
                     isPopular: false,
@@ -910,7 +914,7 @@
                     id: 'chicken_drum_stick',
                     category: 'appetizers',
                     name: 'Chicken Drum Stick',
-                    desc: 'Crispy fried marinated chicken drumsticks seasoned with oriental spice mix.',
+                    desc: 'Pan Asian style fried chicken featuring a rich, savory flavor.',
                     image: 'images/chicken_drum_stick.jpg',
                     isPopular: false,
                     type: 'size_variant',
@@ -923,7 +927,7 @@
                     id: 'dynamite_prawns',
                     category: 'appetizers',
                     name: 'Dynamite Prawns',
-                    desc: 'Crispy fried succulent prawns tossed in fiery and creamy signature dynamite sauce.',
+                    desc: 'Crispy fried prawns tossed in a creamy, spicy, and tangy dynamite sauce.',
                     price: 950,
                     image: 'images/dynamite_prawns.jpg',
                     isPopular: false,
@@ -935,7 +939,7 @@
                     id: 'chicken_chowmein',
                     category: 'noodles',
                     name: 'Chicken Chowmein',
-                    desc: 'Wok-tossed noodles with shredded chicken, crunchy cabbage, carrots & savory soy garlic sauce.',
+                    desc: 'Chinese style stir fried noodles and tender chicken featuring a savory flavor.',
                     image: 'images/chicken_chowmein.jpg',
                     isPopular: false,
                     type: 'size_variant',
@@ -948,7 +952,7 @@
                     id: 'vegetable_chowmein',
                     category: 'noodles',
                     name: 'Vegetable Chowmein',
-                    desc: 'Stir-fried wok noodles loaded with garden-fresh bell peppers, cabbage, carrots and spring onions.',
+                    desc: 'Chinese style stir fried noodles and fresh vegetables featuring a comforting and savory flavor.',
                     image: 'images/vegetable_chowmein.jpg',
                     isPopular: false,
                     type: 'size_variant',
@@ -961,7 +965,7 @@
                     id: 'wok_special_chowmein',
                     category: 'noodles',
                     name: 'Wok Special Chowmein',
-                    desc: 'Chef’s premium wok noodles stir-fried with chicken, beef strips, prawns, mushrooms & special sauce.',
+                    desc: 'Chinese style special stir fried noodles featuring signature spices and a rich, savory flavor.',
                     image: 'images/wok_special_chowmein.jpg',
                     isPopular: false,
                     type: 'size_variant',
@@ -974,7 +978,7 @@
                     id: 'stir_fried_chicken_chilli_noodles',
                     category: 'noodles',
                     name: 'Stir Fried Chicken Chilli Noodles',
-                    desc: 'Spicy noodles stir-fried in hot wok with chicken shreds, red chili flakes, and scallions.',
+                    desc: 'Chinese style stir fried noodles with tender chicken and chili peppers featuring a savory and spicy flavor.',
                     image: 'images/stir_fried_chicken_chilli_noodles.jpg',
                     isPopular: false,
                     type: 'size_variant',
@@ -987,7 +991,7 @@
                     id: 'stir_fried_beef_chilli_noodles',
                     category: 'noodles',
                     name: 'Stir Fried Beef Chilli Noodles',
-                    desc: 'Tender beef strips wok tossed with spicy noodles, green chilies, onions and rich dark sauce.',
+                    desc: 'Chinese style stir fried noodles with sliced beef and chili peppers featuring a savory and spicy flavor.',
                     image: 'images/stir_fried_beef_chilli_noodles.jpg',
                     isPopular: false,
                     type: 'size_variant',
@@ -1002,7 +1006,7 @@
                     id: 'egg_fried_rice',
                     category: 'rice',
                     name: 'Egg Fried Rice',
-                    desc: 'Classic Asian fragrant long-grain rice stir-fried in wok with scrambled eggs and spring onions.',
+                    desc: 'Chinese style stir fried rice and egg featuring a comforting and savory flavor.',
                     image: 'images/egg_fried_rice.jpg',
                     isPopular: false,
                     type: 'size_variant',
@@ -1015,7 +1019,7 @@
                     id: 'vegetable_fried_rice',
                     category: 'rice',
                     name: 'Vegetable Fried Rice',
-                    desc: 'Light and aromatic wok-fried rice tossed with finely diced fresh vegetables.',
+                    desc: 'Chinese style stir fried rice and fresh vegetables featuring a comforting and savory flavor.',
                     image: 'images/vegetable_fried_rice.jpg',
                     isPopular: false,
                     type: 'size_variant',
@@ -1028,7 +1032,7 @@
                     id: 'chicken_fried_rice',
                     category: 'rice',
                     name: 'Chicken Fried Rice',
-                    desc: 'Fluffy wok rice tossed with tender seasoned chicken chunks, eggs, carrots and soy seasoning.',
+                    desc: 'Chinese style stir fried rice with tender chicken bits and egg featuring a savory flavor.',
                     image: 'images/chicken_fried_rice.jpg',
                     isPopular: false,
                     type: 'size_variant',
@@ -1041,7 +1045,7 @@
                     id: 'masala_rice',
                     category: 'rice',
                     name: 'Masala Rice',
-                    desc: 'Spicy fusion oriental rice infused with aromatic masala seasoning and wok char.',
+                    desc: 'Flavorful stir-fried rice seasoned with warm aromatic spices and a savory taste.',
                     image: 'images/masala_rice.jpg',
                     isPopular: false,
                     type: 'size_variant',
@@ -1054,7 +1058,7 @@
                     id: 'wok_special_rice',
                     category: 'rice',
                     name: 'Wok Special Rice',
-                    desc: 'Signature master wok rice stir-fried with chicken, beef, prawns, mushrooms and secret spice blend.',
+                    desc: 'Signature style stir-fried rice mixed with rich seasonings and balanced savory flavors.',
                     image: 'images/wok_special_rice.jpg',
                     isPopular: false,
                     type: 'size_variant',
@@ -1070,7 +1074,7 @@
                     id: 'kung_pao',
                     category: 'main_course',
                     name: 'Kung Pao',
-                    desc: 'Famous Szechuan stir-fry with peanuts, dried red chilies, bell peppers & sweet spicy glaze.',
+                    desc: 'Chinese style stir fried tender chicken featuring a savory and spicy flavor.',
                     image: 'images/kung_pao.jpg',
                     isPopular: false,
                     type: 'main_course_variant',
@@ -1085,7 +1089,7 @@
                     id: 'szechuan',
                     category: 'main_course',
                     name: 'Szechuan',
-                    desc: 'Spicy wok gravy cooked in pungent Szechuan chili sauce, garlic, ginger, and scallions.',
+                    desc: 'Chinese style stir fried tender chicken featuring a savory and spicy flavor.',
                     image: 'images/szechuan.jpg',
                     isPopular: false,
                     type: 'main_course_variant',
@@ -1100,7 +1104,7 @@
                     id: 'chilli_dry',
                     category: 'main_course',
                     name: 'Chilli Dry',
-                    desc: 'Crispy sliced meat stir-fried dry with green chilies, ginger julienne, onions and savory seasoning.',
+                    desc: 'Chinese style stir fried tender chicken featuring a savory and spicy flavor.',
                     image: 'images/chilli_dry.jpg',
                     isPopular: false,
                     type: 'main_course_variant',
@@ -1115,7 +1119,7 @@
                     id: 'black_pepper',
                     category: 'main_course',
                     name: 'Black Pepper',
-                    desc: 'Aromatic crushed black pepper sauce wok-tossed with onions, capsicum and savory dark soy.',
+                    desc: 'Chinese style stir fried tender chicken featuring a savory and spicy pepper flavor.',
                     image: 'images/black_pepper.jpg',
                     isPopular: false,
                     type: 'main_course_variant',
@@ -1128,7 +1132,7 @@
                     id: 'mongolian',
                     category: 'main_course',
                     name: 'Mongolian',
-                    desc: 'Caramelized rich brown sauce with sliced meat, abundant scallions and a subtle sweetness.',
+                    desc: 'Asian style stir fried tender chicken featuring a savory and mildly sweet flavor.',
                     image: 'images/mongolian.jpg',
                     isPopular: false,
                     type: 'main_course_variant',
@@ -1143,7 +1147,7 @@
                     id: 'manchurian',
                     category: 'main_course',
                     name: 'Manchurian',
-                    desc: 'All-time favorite red tangy gravy with hints of garlic, ginger, and fresh green chilies.',
+                    desc: 'Chinese style stir fried tender chicken featuring a savory and spicy flavor.',
                     image: 'images/manchurian.jpg',
                     isPopular: false,
                     type: 'main_course_variant',
@@ -1158,7 +1162,7 @@
                     id: 'sweet_sour',
                     category: 'main_course',
                     name: 'Sweet & Sour',
-                    desc: 'Crispy meat chunks smothered in vibrant sweet and sour sauce with pineapple and peppers.',
+                    desc: 'Chinese style stir fried chicken featuring a balanced savory, sweet, and tangy flavor.',
                     image: 'images/sweet_sour.jpg',
                     isPopular: false,
                     type: 'main_course_variant',
@@ -1173,7 +1177,7 @@
                     id: 'hot_garlic',
                     category: 'main_course',
                     name: 'Hot Garlic',
-                    desc: 'Robust roasted garlic sauce infused with red chili paste, scallions and Asian seasonings.',
+                    desc: 'Chinese style stir fried tender chicken featuring a savory and spicy garlic flavor.',
                     image: 'images/hot_garlic.jpg',
                     isPopular: false,
                     type: 'main_course_variant',
@@ -1186,7 +1190,7 @@
                     id: 'cashew_nut',
                     category: 'main_course',
                     name: 'Cashew Nut',
-                    desc: 'Stir-fried chicken with roasted crunchy cashew nuts, mushrooms, onions and light oyster glaze.',
+                    desc: 'Chinese style stir fried tender chicken featuring a savory and mildly sweet flavor.',
                     image: 'images/cashew_nut.jpg',
                     isPopular: false,
                     type: 'main_course_variant',
@@ -1199,7 +1203,7 @@
                     id: 'oyster_sauce',
                     category: 'main_course',
                     name: 'Oyster Sauce',
-                    desc: 'Savory classic Cantonese stir-fry with rich oyster sauce, black mushrooms and crisp vegetables.',
+                    desc: 'Stir-fried tender meat or chicken coated in a rich, savory, and umami-packed oyster sauce.',
                     image: 'images/oyster_sauce.jpg',
                     isPopular: false,
                     type: 'main_course_variant',
@@ -1214,7 +1218,7 @@
                     id: 'bankok_chilli',
                     category: 'main_course',
                     name: 'Bankok Chilli',
-                    desc: 'Thai-style spicy chili stir-fry with fresh basil aroma, lemongrass hints and fiery bird’s eye chili.',
+                    desc: 'Thai style stir-fried chicken cooked with fresh chilies featuring a bold, spicy, and tangy flavor.',
                     image: 'images/bankok_chilli.jpg',
                     isPopular: false,
                     type: 'main_course_variant',
@@ -1231,7 +1235,7 @@
                     id: 'crispy_sesame_beef',
                     category: 'main_course',
                     name: 'Crispy Sesame Beef',
-                    desc: 'Shredded beef or seafood crispy fried, tossed in caramelized sweet chili glaze & toasted sesame.',
+                    desc: 'Crispy fried sliced beef tossed in a savory, mildly sweet glaze and sprinkled with toasted sesame seeds.',
                     image: 'images/crispy_sesame_beef.jpg',
                     isPopular: false,
                     type: 'main_course_variant',
@@ -1252,6 +1256,7 @@
         let serviceType = 'Home Delivery'; // or 'Take Away'
         let deliveryArea = 'inside'; // 'inside' (PKR 50) or 'outside' (PKR 100)
         const MIN_ORDER_AMOUNT = 1000;
+        let unavailableItems = new Set();
 
         function getDeliveryFee() {
             if (serviceType === 'Take Away') return 0;
@@ -1277,7 +1282,62 @@
             renderProducts();
             loadCartFromStorage();
             updateCartUI();
+            fetchAvailability();
         });
+
+        // --- SUPABASE: Real-time product availability ---
+        async function fetchAvailability() {
+            if (!supabaseClient) return;
+            try {
+                // Initial fetch
+                const { data, error } = await supabaseClient
+                    .from('product_availability')
+                    .select('product_id, is_available');
+
+                if (!error && data) {
+                    unavailableItems.clear();
+                    data.forEach(row => {
+                        if (row.is_available === false) {
+                            unavailableItems.add(row.product_id);
+                        }
+                    });
+                    renderProducts();
+                    const before = cart.length;
+                    cart = cart.filter(item => !unavailableItems.has(item.id));
+                    if (cart.length !== before) {
+                        saveCartToStorage();
+                        updateCartUI();
+                        showToast('Some unavailable items were removed from your basket');
+                    }
+                }
+
+                // Real-time listener for updates
+                supabaseClient
+                    .channel('public:product_availability')
+                    .on('postgres_changes', { event: '*', schema: 'public', table: 'product_availability' }, payload => {
+                        if (payload.new) {
+                            if (payload.new.is_available === false) {
+                                unavailableItems.add(payload.new.product_id);
+                            } else {
+                                unavailableItems.delete(payload.new.product_id);
+                            }
+                        } else if (payload.eventType === 'DELETE' && payload.old) {
+                            unavailableItems.delete(payload.old.product_id);
+                        }
+                        renderProducts();
+                        const before = cart.length;
+                        cart = cart.filter(item => !unavailableItems.has(item.id));
+                        if (cart.length !== before) {
+                            saveCartToStorage();
+                            updateCartUI();
+                            showToast('Some unavailable items were removed from your basket');
+                        }
+                    })
+                    .subscribe();
+            } catch(e) {
+                console.warn('Availability fetch failed:', e);
+            }
+        }
 
         // --- 4. RENDER CATEGORY PILLS & AUTO-SCROLL LOOP ---
         let navAutoScrollId = null;
@@ -1396,13 +1456,16 @@
                 if (item.category === 'main_course') {
                     sideBadge = `
                         <span class="text-[9px] font-extrabold text-[#1b5c4a] bg-[#edf8f5] border border-[#a8dcce] px-1.5 py-0.5 rounded flex items-center gap-1 mt-1">
-                            <i class="fa-solid fa-bowl-rice text-[8px]"></i> Includes Rice/Chowmein (Single)
+                            <i class="fa-solid fa-bowl-rice text-[8px]"></i> Includes Free Fried Rice (Single)
                         </span>
                     `;
                 }
 
+                const isUnavailable = unavailableItems.has(item.id);
+
                 return `
-                    <div class="glass-card-light rounded-2xl p-3 shadow-sm hover:shadow-md transition-all duration-200 flex items-center gap-3 border border-slate-200">
+                    <div class="glass-card-light rounded-2xl p-3 shadow-sm ${isUnavailable ? 'opacity-60' : 'hover:shadow-md'} transition-all duration-200 flex items-center gap-3 border ${isUnavailable ? 'border-red-200' : 'border-slate-200'} relative">
+                        ${isUnavailable ? '<div class="absolute top-2 right-2 z-10"><span class="bg-red-500 text-white text-[9px] font-black px-2 py-0.5 rounded-full uppercase tracking-wide shadow-sm">Unavailable</span></div>' : ''}
                         <!-- Image -->
                         <div class="relative w-24 h-24 sm:w-28 sm:h-28 rounded-xl overflow-hidden shrink-0 bg-slate-900 border border-slate-200">
                             <img 
@@ -1435,10 +1498,11 @@
 
                                 <button 
                                     onclick="openItemModalById('${item.id}')"
-                                    class="bg-[#2E9578] hover:bg-[#247861] text-white text-xs font-black px-3.5 py-1.5 rounded-xl shadow-sm active:scale-95 transition flex items-center gap-1"
+                                    class="${isUnavailable ? 'bg-slate-300 cursor-not-allowed text-slate-500' : 'bg-[#2E9578] hover:bg-[#247861] text-white'} text-xs font-black px-3.5 py-1.5 rounded-xl shadow-sm ${isUnavailable ? '' : 'active:scale-95'} transition flex items-center gap-1"
+                                    ${isUnavailable ? 'disabled' : ''}
                                 >
-                                    <i class="fa-solid fa-plus text-[10px]"></i>
-                                    <span>Add</span>
+                                    <i class="fa-solid fa-${isUnavailable ? 'ban' : 'plus'} text-[10px]"></i>
+                                    <span>${isUnavailable ? 'Sold Out' : 'Add'}</span>
                                 </button>
                             </div>
                         </div>
@@ -1468,6 +1532,10 @@
 
         // --- 7. ITEM MODAL & SELECTION LOGIC ---
         function openItemModalById(id) {
+            if (unavailableItems.has(id)) {
+                showToast('This item is currently unavailable');
+                return;
+            }
             const item = MENU_DATA.items.find(i => i.id === id);
             if (!item) return;
 
@@ -1548,14 +1616,6 @@
                                     <span class="flex items-center gap-2">
                                         <input type="radio" name="sideChoice" value="Vegetable Fried Rice" class="text-[#2E9578] focus:ring-[#2E9578]">
                                         <span>🥢 Vegetable Fried Rice</span>
-                                    </span>
-                                    <span class="text-[10px] text-[#2E9578] font-extrabold">Included</span>
-                                </label>
-
-                                <label onclick="selectSideOption('Vegetable Chowmein')" class="side-choice-card cursor-pointer p-2.5 rounded-xl border border-slate-200 bg-white flex items-center justify-between text-xs font-bold text-slate-900 transition">
-                                    <span class="flex items-center gap-2">
-                                        <input type="radio" name="sideChoice" value="Vegetable Chowmein" class="text-[#2E9578] focus:ring-[#2E9578]">
-                                        <span>🥢 Vegetable Chowmein</span>
                                     </span>
                                     <span class="text-[10px] text-[#2E9578] font-extrabold">Included</span>
                                 </label>
@@ -1966,6 +2026,37 @@
             message += `*PAYMENT METHOD:* ${payment}\n`;
             message += `----------------------------\n`;
             message += `_Sent via YUM WOK Digital Pan Asian Menu_`;
+
+            // Record order in Supabase
+            if (supabaseClient) {
+                try {
+                    const now = new Date();
+                    const dateStr = now.getFullYear() + '-' + String(now.getMonth()+1).padStart(2,'0') + '-' + String(now.getDate()).padStart(2,'0');
+                    const timeStr = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
+                    const orderId = 'ORD-' + Date.now().toString(36).toUpperCase() + '-' + Math.random().toString(36).substring(2, 6).toUpperCase();
+
+                    supabaseClient.from('orders').insert([{
+                        id: orderId,
+                        items: cart.map(ci => ({ name: ci.name, options: ci.optionsText || '', qty: ci.qty, unitPrice: ci.unitPrice, total: ci.unitPrice * ci.qty })),
+                        subtotal: totalPrice,
+                        delivery_fee: deliveryFee,
+                        total: grandTotal,
+                        service_type: serviceType,
+                        delivery_area: serviceType === 'Home Delivery' ? deliveryArea : 'N/A',
+                        address: address || '',
+                        payment: payment,
+                        notes: notes || '',
+                        status: 'pending',
+                        timestamp: Date.now(),
+                        date: dateStr,
+                        time: timeStr
+                    }]).then(({ error }) => {
+                        if (error) console.warn('Order save error:', error);
+                    });
+                } catch(e) {
+                    console.warn('Order record failed:', e);
+                }
+            }
 
             // Open WhatsApp link
             const encodedMsg = encodeURIComponent(message);

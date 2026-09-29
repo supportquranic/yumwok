@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>YUM WOK | Admin Panel</title>
+    <meta name="robots" content="noindex, nofollow">
+
+    <!-- Google Fonts (same as main site) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome 6 Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#ffffff',
+                        secondary: { DEFAULT: '#2E9578', hover: '#247861', dark: '#1b5c4a', light: '#edf8f5', border: '#a8dcce' },
+                        wok: { teal: '#2E9578', tealHover: '#247861', tealDark: '#1b5c4a', tealLight: '#edf8f5', tealBorder: '#a8dcce', amber: '#f59e0b', dark: '#0f172a', bg: '#f8fafc', cardBg: '#ffffff', border: '#e2e8f0' }
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        display: ['Outfit', 'sans-serif']
+                    },
+                    boxShadow: {
+                        'soft': '0 4px 20px rgba(0, 0, 0, 0.04)',
+                        'card': '0 4px 15px rgba(46, 149, 120, 0.08)',
+                        'floating': '0 10px 30px rgba(46, 149, 120, 0.35)',
+                        'modal': '0 25px 60px -15px rgba(15, 23, 42, 0.25)'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Supabase JS SDK & Configuration -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
+
+    <style>
+        * { -webkit-tap-highlight-color: transparent; box-sizing: border-box; }
+        body { background: #f8fafc; font-family: 'Plus Jakarta Sans', sans-serif; color: #0f172a; min-height: 100vh; margin: 0; padding: 0; display: flex; justify-content: center; }
+        .fa, .fas, .far, .fal, .fab, .fa-solid, .fa-regular, .fa-brands { font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands", sans-serif !important; }
+        .fa-brands { font-family: "Font Awesome 6 Brands" !important; }
+        .app-wrapper { width: 100%; max-width: 500px; background: #ffffff; min-height: 100vh; position: relative; box-shadow: 0 0 50px rgba(46,149,120,0.06); display: flex; flex-direction: column; border-left: 1px solid #e2e8f0; border-right: 1px solid #e2e8f0; }
+        @media (min-width: 1024px) { .app-wrapper { max-width: 540px; } }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        /* Toggle Switch */
+        .toggle-switch { position: relative; width: 44px; height: 24px; background: #cbd5e1; border-radius: 12px; cursor: pointer; transition: all 0.3s; flex-shrink: 0; }
+        .toggle-switch.active { background: #2E9578; }
+        .toggle-switch::after { content: ''; position: absolute; width: 20px; height: 20px; background: white; border-radius: 50%; top: 2px; left: 2px; transition: all 0.3s; box-shadow: 0 1px 3px rgba(0,0,0,0.2); }
+        .toggle-switch.active::after { left: 22px; }
+
+        /* Bottom Tab Bar */
+        .tab-bar { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 500px; background: rgba(255,255,255,0.96); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-top: 1px solid #e2e8f0; z-index: 50; }
+        @media (min-width: 1024px) { .tab-bar { max-width: 540px; } }
+
+        .line-clamp-1 { display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; }
+    </style>
+</head>
+<body class="selection:bg-[#2E9578] selection:text-white">
+
+    <!-- ===== LOGIN SCREEN ===== -->
+    <div id="loginScreen" class="app-wrapper items-center justify-center px-6">
+        <div class="w-full max-w-sm">
+            <div class="text-center mb-8">
+                <h1 class="font-display font-black text-3xl text-slate-900 tracking-tight">
+                    YUM <span class="text-[#2E9578]">WOK</span>
+                </h1>
+                <p class="text-xs text-slate-500 font-bold tracking-widest uppercase mt-1">Admin Panel</p>
+            </div>
+            <div class="bg-white border border-slate-200 rounded-3xl p-6 shadow-xl space-y-5">
+                <div class="text-center">
+                    <div class="w-14 h-14 bg-[#edf8f5] border border-[#a8dcce] text-[#2E9578] rounded-2xl flex items-center justify-center text-2xl mx-auto mb-3 shadow-sm">
+                        <i class="fa-solid fa-shield-halved"></i>
+                    </div>
+                    <h2 class="font-display font-bold text-lg text-slate-900">Admin Login</h2>
+                    <p class="text-xs text-slate-500 mt-0.5">Sign in to manage your restaurant</p>
+                </div>
+                <div class="space-y-3">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1.5">Email Address</label>
+                        <input type="email" id="loginEmail" placeholder="admin@yumwok.com" autocomplete="email"
+                            class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-3 text-sm font-medium focus:outline-none focus:border-[#2E9578] focus:ring-2 focus:ring-[#2E9578]/20 transition">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1.5">Password</label>
+                        <input type="password" id="loginPassword" placeholder="••••••••" autocomplete="current-password"
+                            class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-3 text-sm font-medium focus:outline-none focus:border-[#2E9578] focus:ring-2 focus:ring-[#2E9578]/20 transition"
+                            onkeydown="if(event.key==='Enter')doLogin()">
+                    </div>
+                </div>
+                <div id="loginError" class="hidden bg-red-50 border border-red-200 text-red-700 text-xs font-bold p-3 rounded-xl flex items-center gap-2">
+                    <i class="fa-solid fa-circle-exclamation shrink-0"></i>
+                    <span id="loginErrorText"></span>
+                </div>
+                <button onclick="doLogin()" id="loginBtn"
+                    class="w-full bg-[#2E9578] hover:bg-[#247861] text-white font-black text-sm py-3.5 rounded-xl shadow-lg shadow-[#2E9578]/25 active:scale-[0.98] transition flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-right-to-bracket"></i>
+                    <span>Sign In</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== ADMIN PANEL (hidden until login) ===== -->
+    <div id="adminPanel" class="app-wrapper" style="display:none">
+        <!-- Sticky Header -->
+        <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-sm border-b border-slate-200 px-4 py-3 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <h1 class="font-display font-black text-lg text-slate-900 tracking-tight">
+                    YUM <span class="text-[#2E9578]">WOK</span>
+                </h1>
+                <span class="text-[9px] font-black uppercase tracking-widest bg-slate-100 text-slate-500 px-2 py-0.5 rounded-md border border-slate-200">Admin</span>
+            </div>
+            <button onclick="doLogout()" class="text-xs font-bold text-slate-400 hover:text-red-500 flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg hover:bg-red-50 transition">
+                <i class="fa-solid fa-right-from-bracket"></i> Logout
+            </button>
+        </header>
+
+        <!-- Tab Content (scrollable) -->
+        <div class="flex-1 overflow-y-auto pb-20 no-scrollbar">
+
+            <!-- ===== DASHBOARD TAB ===== -->
+            <div id="tabDashboard" class="p-4 space-y-4">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h2 class="font-display font-bold text-base text-slate-900">Today's Dashboard</h2>
+                        <p class="text-[11px] text-slate-500 font-medium" id="dashDate"></p>
+                    </div>
+                    <button onclick="initAdmin()" title="Refresh" class="w-8 h-8 rounded-full bg-slate-100 text-slate-500 flex items-center justify-center hover:bg-[#edf8f5] hover:text-[#2E9578] transition active:scale-95">
+                        <i class="fa-solid fa-arrows-rotate text-xs"></i>
+                    </button>
+                </div>
+
+                <!-- Stats Cards -->
+                <div class="grid grid-cols-2 gap-3">
+                    <div class="bg-gradient-to-br from-blue-50 to-blue-100/80 border border-blue-200 rounded-2xl p-3.5 text-center shadow-sm">
+                        <div class="text-3xl font-black text-blue-700 font-display" id="statOrders">0</div>
+                        <div class="text-[10px] font-bold text-blue-600 uppercase tracking-wider mt-1">Today's Orders</div>
+                    </div>
+                    <div class="bg-gradient-to-br from-emerald-50 to-emerald-100/80 border border-emerald-200 rounded-2xl p-3.5 text-center shadow-sm">
+                        <div class="text-2xl font-black text-emerald-700 font-display leading-tight" id="statSales">₨0</div>
+                        <div class="text-[10px] font-bold text-emerald-600 uppercase tracking-wider mt-1">Today's Total Income</div>
+                    </div>
+                </div>
+
+                <!-- Recent Orders -->
+                <div>
+                    <h3 class="font-display font-bold text-sm text-slate-900 mb-2.5 flex items-center gap-2">
+                        <i class="fa-solid fa-clock-rotate-left text-[#2E9578] text-xs"></i> Recent WhatsApp Orders
+                    </h3>
+                    <div id="recentOrdersList" class="space-y-2">
+                        <div class="text-xs text-slate-400 text-center py-10"><i class="fa-solid fa-spinner fa-spin text-lg block mb-2"></i>Loading...</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== PRODUCTS TAB ===== -->
+            <div id="tabProducts" class="hidden p-4 space-y-4">
+                <div class="flex items-center justify-between">
+                    <h2 class="font-display font-bold text-base text-slate-900">Product Availability</h2>
+                    <span class="text-[10px] font-bold text-[#2E9578] bg-[#edf8f5] border border-[#a8dcce] px-2 py-0.5 rounded-full" id="availableCount">—</span>
+                </div>
+
+                <!-- Bulk Action: All Available -->
+                <div>
+                    <button onclick="setAllAvailability(true)" class="w-full text-xs font-bold bg-[#edf8f5] text-[#2E9578] border border-[#a8dcce] py-2.5 rounded-xl hover:bg-[#2E9578] hover:text-white active:scale-95 transition flex items-center justify-center gap-1.5 shadow-sm">
+                        <i class="fa-solid fa-check-double text-xs"></i> Set All Items Available
+                    </button>
+                </div>
+
+                <div id="productsList" class="space-y-4">
+                    <div class="text-xs text-slate-400 text-center py-10"><i class="fa-solid fa-spinner fa-spin text-lg block mb-2"></i>Loading...</div>
+                </div>
+            </div>
+
+            <!-- ===== ORDERS TAB ===== -->
+            <div id="tabOrders" class="hidden p-4 space-y-4">
+                <div class="flex items-center justify-between">
+                    <h2 class="font-display font-bold text-base text-slate-900">WhatsApp Orders</h2>
+                    <select id="orderDateFilter" onchange="loadOrders()"
+                        class="text-xs font-bold bg-slate-50 border border-slate-200 rounded-xl px-3 py-1.5 focus:outline-none focus:border-[#2E9578] cursor-pointer">
+                        <option value="today">Today</option>
+                        <option value="all">All Time</option>
+                    </select>
+                </div>
+                <div id="ordersList" class="space-y-2.5">
+                    <div class="text-xs text-slate-400 text-center py-10"><i class="fa-solid fa-spinner fa-spin text-lg block mb-2"></i>Loading...</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Tab Bar -->
+        <nav class="tab-bar">
+            <div class="grid grid-cols-3 text-center">
+                <button onclick="switchTab('Dashboard')" id="tabBtnDashboard"
+                    class="py-3 text-[11px] font-bold text-[#2E9578] border-t-2 border-[#2E9578] transition">
+                    <i class="fa-solid fa-chart-simple text-base block mb-0.5"></i> Dashboard
+                </button>
+                <button onclick="switchTab('Products')" id="tabBtnProducts"
+                    class="py-3 text-[11px] font-bold text-slate-400 border-t-2 border-transparent transition">
+                    <i class="fa-solid fa-bowl-food text-base block mb-0.5"></i> Products
+                </button>
+                <button onclick="switchTab('Orders')" id="tabBtnOrders"
+                    class="py-3 text-[11px] font-bold text-slate-400 border-t-2 border-transparent transition">
+                    <i class="fa-brands fa-whatsapp text-base block mb-0.5"></i> Orders
+                </button>
+            </div>
+        </nav>
+    </div>
+
+    <!-- TOAST NOTIFICATION -->
+    <div id="toast" class="fixed top-5 left-1/2 -translate-x-1/2 z-[100] bg-slate-900 text-white text-xs font-black px-4 py-2.5 rounded-full shadow-2xl flex items-center gap-2 transform -translate-y-16 opacity-0 transition-all duration-300 pointer-events-none border border-slate-700 max-w-[90vw]">
+        <i class="fa-solid fa-circle-check text-[#2E9578]"></i>
+        <span id="toastMsg">Saved!</span>
+    </div>
+
+    <!-- ===== JAVASCRIPT ===== -->
+    <script>
+        // ============================================================
+        // ADMIN PRODUCTS LIST (matches MENU_DATA in index.html)
+        // ============================================================
+        const ADMIN_PRODUCTS = [
+            { id: 'hot_sour_soup', name: 'Hot & Sour Soup', category: 'Soup' },
+            { id: 'chicken_corn_soup', name: 'Chicken Corn Soup', category: 'Soup' },
+            { id: 'szechuan_soup', name: 'Szechuan Soup', category: 'Soup' },
+            { id: 'thai_clear_soup', name: 'Thai Clear Soup', category: 'Soup' },
+            { id: 'wok_special_soup', name: 'WOK Special Soup', category: 'Soup' },
+            { id: 'chicken_tempura', name: 'Chicken Tempura', category: 'Appetizers' },
+            { id: 'honey_glazed_wings', name: 'Honey Glazed Wings (5pcs)', category: 'Appetizers' },
+            { id: 'tempura_prawns', name: 'Tempura Prawns (5pcs)', category: 'Appetizers' },
+            { id: 'chicken_momos', name: 'Chicken Momos (6pcs)', category: 'Appetizers' },
+            { id: 'chicken_drum_stick', name: 'Chicken Drum Stick', category: 'Appetizers' },
+            { id: 'dynamite_prawns', name: 'Dynamite Prawns', category: 'Appetizers' },
+            { id: 'chicken_chowmein', name: 'Chicken Chowmein', category: 'Noodles' },
+            { id: 'vegetable_chowmein', name: 'Vegetable Chowmein', category: 'Noodles' },
+            { id: 'wok_special_chowmein', name: 'Wok Special Chowmein', category: 'Noodles' },
+            { id: 'stir_fried_chicken_chilli_noodles', name: 'Stir Fried Chicken Chilli Noodles', category: 'Noodles' },
+            { id: 'stir_fried_beef_chilli_noodles', name: 'Stir Fried Beef Chilli Noodles', category: 'Noodles' },
+            { id: 'egg_fried_rice', name: 'Egg Fried Rice', category: 'Rice' },
+            { id: 'vegetable_fried_rice', name: 'Vegetable Fried Rice', category: 'Rice' },
+            { id: 'chicken_fried_rice', name: 'Chicken Fried Rice', category: 'Rice' },
+            { id: 'masala_rice', name: 'Masala Rice', category: 'Rice' },
+            { id: 'wok_special_rice', name: 'Wok Special Rice', category: 'Rice' },
+            { id: 'kung_pao', name: 'Kung Pao', category: 'Main Course' },
+            { id: 'szechuan', name: 'Szechuan', category: 'Main Course' },
+            { id: 'chilli_dry', name: 'Chilli Dry', category: 'Main Course' },
+            { id: 'black_pepper', name: 'Black Pepper', category: 'Main Course' },
+            { id: 'mongolian', name: 'Mongolian', category: 'Main Course' },
+            { id: 'manchurian', name: 'Manchurian', category: 'Main Course' },
+            { id: 'sweet_sour', name: 'Sweet & Sour', category: 'Main Course' },
+            { id: 'hot_garlic', name: 'Hot Garlic', category: 'Main Course' },
+            { id: 'cashew_nut', name: 'Cashew Nut', category: 'Main Course' },
+            { id: 'oyster_sauce', name: 'Oyster Sauce', category: 'Main Course' },
+            { id: 'bankok_chilli', name: 'Bankok Chilli', category: 'Main Course' },
+            { id: 'crispy_sesame_beef', name: 'Crispy Sesame Beef', category: 'Main Course' }
+        ];
+        const CATEGORIES = ['Soup', 'Appetizers', 'Noodles', 'Rice', 'Main Course'];
+
+        // ============================================================
+        // SUPABASE AUTH & STATE
+        // ============================================================
+        async function checkAuth() {
+            if (!supabaseClient) {
+                document.getElementById('loginErrorText').textContent = 'Please configure supabase-config.js with your project credentials.';
+                document.getElementById('loginError').classList.remove('hidden');
+                return;
+            }
+
+            try {
+                const { data: { session } } = await supabaseClient.auth.getSession();
+                handleAuthChange(session);
+
+                supabaseClient.auth.onAuthStateChange((_event, session) => {
+                    handleAuthChange(session);
+                });
+            } catch(e) {
+                console.warn('Auth check error:', e);
+            }
+        }
+
+        function handleAuthChange(session) {
+            if (session && session.user) {
+                document.getElementById('loginScreen').style.display = 'none';
+                document.getElementById('adminPanel').style.display = 'flex';
+                initAdmin();
+            } else {
+                document.getElementById('loginScreen').style.display = 'flex';
+                document.getElementById('adminPanel').style.display = 'none';
+                cleanupListeners();
+            }
+        }
+
+        async function doLogin() {
+            const email = document.getElementById('loginEmail').value.trim();
+            const password = document.getElementById('loginPassword').value;
+            const errorDiv = document.getElementById('loginError');
+            const errorText = document.getElementById('loginErrorText');
+            const btn = document.getElementById('loginBtn');
+
+            if (!email || !password) {
+                errorText.textContent = 'Please enter email and password.';
+                errorDiv.classList.remove('hidden');
+                return;
+            }
+
+            if (!supabaseClient) {
+                errorText.textContent = 'Supabase credentials not configured in supabase-config.js';
+                errorDiv.classList.remove('hidden');
+                return;
+            }
+
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Signing in...';
+            errorDiv.classList.add('hidden');
+
+            try {
+                const { data, error } = await supabaseClient.auth.signInWithPassword({
+                    email: email,
+                    password: password
+                });
+
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fa-solid fa-right-to-bracket"></i> <span>Sign In</span>';
+
+                if (error) {
+                    let msg = error.message || 'Login failed. Please try again.';
+                    if (error.message.includes('Invalid login credentials')) {
+                        msg = 'Invalid email or password.';
+                    }
+                    errorText.textContent = msg;
+                    errorDiv.classList.remove('hidden');
+                }
+            } catch (err) {
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fa-solid fa-right-to-bracket"></i> <span>Sign In</span>';
+                errorText.textContent = err.message || 'Network error. Please try again.';
+                errorDiv.classList.remove('hidden');
+            }
+        }
+
+        async function doLogout() {
+            if (supabaseClient) {
+                await supabaseClient.auth.signOut();
+            }
+        }
+
+        // ============================================================
+        // ADMIN INITIALIZATION
+        // ============================================================
+        let availability = {};
+        let todayOrders = {};
+        let allOrders = {};
+        let availChannel = null;
+        let ordersChannel = null;
+
+        function cleanupListeners() {
+            if (availChannel && supabaseClient) {
+                supabaseClient.removeChannel(availChannel);
+                availChannel = null;
+            }
+            if (ordersChannel && supabaseClient) {
+                supabaseClient.removeChannel(ordersChannel);
+                ordersChannel = null;
+            }
+        }
+
+        async function initAdmin() {
+            const now = new Date();
+            document.getElementById('dashDate').textContent = now.toLocaleDateString('en-US', {
+                weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+            });
+
+            cleanupListeners();
+
+            // Render UI immediately with local defaults
+            renderProducts();
+            renderDashboard();
+            renderOrdersList(todayOrders);
+
+            // Fetch remote data in parallel
+            await Promise.allSettled([
+                fetchAvailabilityData(),
+                fetchTodayOrdersData()
+            ]);
+
+            // Set up Realtime Subscriptions
+            setupRealtimeSubscriptions();
+
+            switchTab('Dashboard');
+        }
+
+        async function fetchAvailabilityData() {
+            if (!supabaseClient) return;
+            try {
+                const { data, error } = await supabaseClient
+                    .from('product_availability')
+                    .select('*');
+
+                if (error) {
+                    console.warn('Availability fetch warning:', error.message);
+                    if (error.code === '42P01' || error.message.includes('relation "public.product_availability" does not exist')) {
+                        showToast('⚠️ Tables not created yet! Run SQL script in Supabase');
+                    }
+                } else if (data) {
+                    availability = {};
+                    data.forEach(row => {
+                        availability[row.product_id] = row.is_available;
+                    });
+                }
+            } catch (e) {
+                console.warn('Availability fetch error:', e);
+            } finally {
+                renderProducts();
+            }
+        }
+
+        async function fetchTodayOrdersData() {
+            if (!supabaseClient) return;
+            try {
+                const today = getTodayDateStr();
+                const { data, error } = await supabaseClient
+                    .from('orders')
+                    .select('*')
+                    .eq('date', today)
+                    .order('timestamp', { ascending: false });
+
+                if (error) {
+                    console.warn('Today orders fetch warning:', error.message);
+                    if (error.code === '42P01' || error.message.includes('relation "public.orders" does not exist')) {
+                        showToast('⚠️ Tables not created yet! Run SQL script in Supabase');
+                    }
+                } else if (data) {
+                    todayOrders = {};
+                    data.forEach(order => {
+                        todayOrders[order.id] = order;
+                    });
+                }
+            } catch (e) {
+                console.warn('Today orders fetch error:', e);
+            } finally {
+                renderDashboard();
+                if (document.getElementById('orderDateFilter').value === 'today') {
+                    renderOrdersList(todayOrders);
+                }
+            }
+        }
+
+        function setupRealtimeSubscriptions() {
+            if (!supabaseClient) return;
+
+            // Product availability changes
+            availChannel = supabaseClient
+                .channel('admin:product_availability')
+                .on('postgres_changes', { event: '*', schema: 'public', table: 'product_availability' }, payload => {
+                    if (payload.new) {
+                        availability[payload.new.product_id] = payload.new.is_available;
+                    } else if (payload.eventType === 'DELETE' && payload.old) {
+                        delete availability[payload.old.product_id];
+                    }
+                    renderProducts();
+                })
+                .subscribe();
+
+            // Orders changes
+            ordersChannel = supabaseClient
+                .channel('admin:orders')
+                .on('postgres_changes', { event: '*', schema: 'public', table: 'orders' }, payload => {
+                    const today = getTodayDateStr();
+                    if (payload.new) {
+                        if (payload.new.date === today) {
+                            todayOrders[payload.new.id] = payload.new;
+                        }
+                        if (allOrders[payload.new.id] || document.getElementById('orderDateFilter').value === 'all') {
+                            allOrders[payload.new.id] = payload.new;
+                        }
+                    } else if (payload.eventType === 'DELETE' && payload.old) {
+                        delete todayOrders[payload.old.id];
+                        delete allOrders[payload.old.id];
+                    }
+                    renderDashboard();
+                    loadOrders();
+                })
+                .subscribe();
+        }
+
+        // ============================================================
+        // TAB NAVIGATION
+        // ============================================================
+        let currentTab = 'Dashboard';
+
+        function switchTab(name) {
+            currentTab = name;
+            ['Dashboard', 'Products', 'Orders'].forEach(t => {
+                const tab = document.getElementById('tab' + t);
+                const btn = document.getElementById('tabBtn' + t);
+                if (t === name) {
+                    tab.classList.remove('hidden');
+                    btn.className = 'py-3 text-[11px] font-bold text-[#2E9578] border-t-2 border-[#2E9578] transition';
+                } else {
+                    tab.classList.add('hidden');
+                    btn.className = 'py-3 text-[11px] font-bold text-slate-400 border-t-2 border-transparent transition';
+                }
+            });
+            if (name === 'Orders') loadOrders();
+        }
+
+        // ============================================================
+        // DASHBOARD
+        // ============================================================
+        function renderDashboard() {
+            const orders = Object.values(todayOrders);
+            const sales = orders.reduce((s, o) => s + (Number(o.total) || 0), 0);
+
+            document.getElementById('statOrders').textContent = orders.length;
+            document.getElementById('statSales').textContent = '₨' + sales.toLocaleString();
+
+            // Recent 5 orders
+            const container = document.getElementById('recentOrdersList');
+            if (orders.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-10">
+                        <div class="w-14 h-14 bg-slate-100 text-slate-300 rounded-full flex items-center justify-center mx-auto text-2xl mb-3 border border-slate-200">
+                            <i class="fa-solid fa-inbox"></i>
+                        </div>
+                        <p class="text-xs text-slate-400 font-medium">No WhatsApp orders today yet</p>
+                    </div>`;
+                return;
+            }
+
+            const sorted = [...orders].sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0)).slice(0, 5);
+            container.innerHTML = sorted.map(order => {
+                const time = order.time || (order.timestamp ? formatTime(order.timestamp) : '—');
+                const itemNames = (order.items || []).map(i => i.qty + 'x ' + i.name).join(', ');
+                const sType = order.service_type || order.serviceType || '—';
+                return `
+                    <div class="bg-slate-50 border border-slate-200 rounded-xl p-3 space-y-1.5">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[11px] font-bold text-slate-700">${time} • ${sType}</span>
+                            <span class="text-xs font-black text-[#2E9578]">PKR ${(Number(order.total) || 0).toLocaleString()}/-</span>
+                        </div>
+                        <p class="text-[11px] text-slate-500 line-clamp-1">${itemNames || 'No items'}</p>
+                        <div class="flex items-center justify-between text-[10px] text-slate-400 pt-0.5">
+                            <span>${order.payment || '—'}</span>
+                            ${order.address ? '<span class="truncate max-w-[200px]">📍 ' + order.address + '</span>' : ''}
+                        </div>
+                    </div>`;
+            }).join('');
+        }
+
+        // ============================================================
+        // PRODUCTS — Availability Toggles
+        // ============================================================
+        function renderProducts() {
+            const container = document.getElementById('productsList');
+            let html = '';
+            const catIcons = { 'Soup': 'fa-mug-hot', 'Appetizers': 'fa-drumstick-bite', 'Noodles': 'fa-bowl-food', 'Rice': 'fa-bowl-rice', 'Main Course': 'fa-utensils' };
+
+            CATEGORIES.forEach(cat => {
+                const prods = ADMIN_PRODUCTS.filter(p => p.category === cat);
+                html += `<div><h3 class="text-[11px] font-black text-slate-400 uppercase tracking-widest mb-2 flex items-center gap-1.5"><i class="fa-solid ${catIcons[cat] || 'fa-tag'} text-[#2E9578] text-[10px]"></i> ${cat} <span class="text-[10px] font-bold text-slate-300">(${prods.length})</span></h3>`;
+                prods.forEach(p => {
+                    const avail = availability[p.id] !== false;
+                    html += `
+                        <div class="bg-white border ${avail ? 'border-slate-200' : 'border-red-200 bg-red-50/40'} rounded-xl px-3.5 py-2.5 flex items-center justify-between mb-1.5 transition-all">
+                            <div class="flex items-center gap-2 min-w-0 flex-1">
+                                <span class="w-2 h-2 rounded-full ${avail ? 'bg-emerald-500' : 'bg-red-400'} shrink-0"></span>
+                                <span class="text-xs font-bold ${avail ? 'text-slate-900' : 'text-slate-400 line-through'} truncate">${p.name}</span>
+                            </div>
+                            <div class="toggle-switch ${avail ? 'active' : ''}" onclick="toggleAvailability('${p.id}', ${!avail})"></div>
+                        </div>`;
+                });
+                html += '</div>';
+            });
+            container.innerHTML = html;
+
+            const total = ADMIN_PRODUCTS.length;
+            const avail = ADMIN_PRODUCTS.filter(p => availability[p.id] !== false).length;
+            document.getElementById('availableCount').textContent = avail + '/' + total + ' Available';
+        }
+
+        async function toggleAvailability(id, makeAvailable) {
+            availability[id] = makeAvailable;
+            renderProducts();
+
+            if (supabaseClient) {
+                try {
+                    const { error } = await supabaseClient
+                        .from('product_availability')
+                        .upsert({
+                            product_id: id,
+                            is_available: makeAvailable,
+                            updated_at: new Date().toISOString()
+                        }, { onConflict: 'product_id' });
+
+                    if (error) console.error('Supabase availability update error:', error);
+                } catch(e) {
+                    console.error('Availability update failed:', e);
+                }
+            }
+            showToast(makeAvailable ? '✅ Item available' : '❌ Item unavailable');
+        }
+
+        async function setAllAvailability(available) {
+            ADMIN_PRODUCTS.forEach(p => { availability[p.id] = available; });
+            renderProducts();
+
+            if (supabaseClient) {
+                try {
+                    const rows = ADMIN_PRODUCTS.map(p => ({
+                        product_id: p.id,
+                        is_available: available,
+                        updated_at: new Date().toISOString()
+                    }));
+
+                    const { error } = await supabaseClient
+                        .from('product_availability')
+                        .upsert(rows, { onConflict: 'product_id' });
+
+                    if (error) console.error('Supabase bulk availability error:', error);
+                } catch(e) {
+                    console.error('Bulk update failed:', e);
+                }
+            }
+            showToast(available ? '✅ All items set to available' : '❌ All items set to unavailable');
+        }
+
+        // ============================================================
+        // ORDERS — View
+        // ============================================================
+        async function loadOrders() {
+            const filter = document.getElementById('orderDateFilter').value;
+            if (filter === 'today') {
+                renderOrdersList(todayOrders);
+            } else {
+                const container = document.getElementById('ordersList');
+                container.innerHTML = '<div class="text-xs text-slate-400 text-center py-10"><i class="fa-solid fa-spinner fa-spin text-lg block mb-2"></i>Loading all orders...</div>';
+
+                if (supabaseClient) {
+                    try {
+                        const { data, error } = await supabaseClient
+                            .from('orders')
+                            .select('*')
+                            .order('timestamp', { ascending: false });
+
+                        if (!error && data) {
+                            allOrders = {};
+                            data.forEach(order => {
+                                allOrders[order.id] = order;
+                            });
+                            renderOrdersList(allOrders);
+                        } else {
+                            renderOrdersList({});
+                        }
+                    } catch(e) {
+                        console.warn('Load orders error:', e);
+                        renderOrdersList({});
+                    }
+                } else {
+                    renderOrdersList({});
+                }
+            }
+        }
+
+        function renderOrdersList(orders) {
+            const container = document.getElementById('ordersList');
+            const entries = Object.entries(orders);
+
+            if (entries.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-12">
+                        <div class="w-14 h-14 bg-slate-100 text-slate-300 rounded-full flex items-center justify-center mx-auto text-2xl mb-3 border border-slate-200">
+                            <i class="fa-brands fa-whatsapp"></i>
+                        </div>
+                        <p class="text-xs text-slate-400 font-medium">No orders found</p>
+                    </div>`;
+                return;
+            }
+
+            entries.sort((a, b) => (b[1].timestamp || 0) - (a[1].timestamp || 0));
+            const today = getTodayDateStr();
+
+            container.innerHTML = entries.map(([id, o]) => {
+                const time = o.time || (o.timestamp ? formatTime(o.timestamp) : '—');
+                const showDate = o.date && o.date !== today;
+                const sType = o.service_type || o.serviceType || '—';
+                const dArea = o.delivery_area || o.deliveryArea;
+
+                const itemsHtml = (o.items || []).map(item =>
+                    `<div class="flex justify-between gap-2"><span class="min-w-0">${item.qty}x ${item.name}${item.options ? ' <span class="text-[#2E9578]">(' + item.options + ')</span>' : ''}</span><span class="font-bold text-slate-700 shrink-0">₨${(Number(item.total) || 0).toLocaleString()}</span></div>`
+                ).join('');
+
+                return `
+                    <div class="bg-white border border-slate-200 rounded-2xl p-3.5 shadow-sm space-y-2.5">
+                        <div class="flex items-center justify-between gap-2">
+                            <div class="min-w-0">
+                                <span class="text-[10px] text-slate-400 font-mono">#${id.slice(-6).toUpperCase()}</span>
+                                <span class="text-[10px] text-slate-400 ml-1">• ${time}</span>
+                                ${showDate ? '<span class="text-[10px] text-slate-400 ml-1">• ' + o.date + '</span>' : ''}
+                            </div>
+                            <span class="text-sm font-black text-[#2E9578]">PKR ${(Number(o.total) || 0).toLocaleString()}/-</span>
+                        </div>
+                        <div class="text-[11px] text-slate-600 space-y-0.5 border-t border-slate-100 pt-2">${itemsHtml || '<span class="text-slate-400">No items</span>'}</div>
+                        <div class="flex items-start justify-between text-[11px] border-t border-slate-100 pt-2 gap-3">
+                            <div class="text-slate-500 min-w-0">
+                                <div class="font-bold">${sType}${dArea && dArea !== 'N/A' ? ' (' + dArea + ')' : ''}</div>
+                                ${o.address ? '<div class="text-[10px] mt-0.5 truncate">' + o.address + '</div>' : ''}
+                                ${o.notes ? '<div class="text-[10px] italic text-slate-400 mt-0.5">📝 ' + o.notes + '</div>' : ''}
+                            </div>
+                            <div class="text-right shrink-0">
+                                <div class="text-[10px] text-slate-400">${o.payment || '—'}</div>
+                            </div>
+                        </div>
+                    </div>`;
+            }).join('');
+        }
+
+        // ============================================================
+        // UTILITIES
+        // ============================================================
+        function getTodayDateStr() {
+            const n = new Date();
+            return n.getFullYear() + '-' + String(n.getMonth() + 1).padStart(2, '0') + '-' + String(n.getDate()).padStart(2, '0');
+        }
+
+        function formatTime(ts) {
+            return new Date(ts).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
+        }
+
+        function showToast(msg) {
+            const t = document.getElementById('toast');
+            document.getElementById('toastMsg').textContent = msg;
+            t.classList.remove('-translate-y-16', 'opacity-0');
+            setTimeout(() => t.classList.add('-translate-y-16', 'opacity-0'), 2500);
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', checkAuth);
+    </script>
+</body>
+</html>
