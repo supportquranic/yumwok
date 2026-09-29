@@ -588,29 +588,7 @@
 
                     <!-- Customer Contact & Address Input Fields -->
                     <div class="space-y-2.5 text-xs">
-                        <div>
-                            <label class="block text-slate-800 font-bold mb-1">
-                                Customer Name <span class="text-[#2E9578]">*</span>
-                            </label>
-                            <input 
-                                type="text" 
-                                id="custName" 
-                                placeholder="Your Name" 
-                                class="w-full bg-slate-50 text-slate-900 border border-slate-300 focus:border-[#2E9578] rounded-xl px-3 py-2.5 text-xs focus:outline-none"
-                            >
-                        </div>
 
-                        <div>
-                            <label class="block text-slate-800 font-bold mb-1">
-                                Phone Number <span class="text-[#2E9578]">*</span>
-                            </label>
-                            <input 
-                                type="tel" 
-                                id="custPhone" 
-                                placeholder="e.g. 0321-XXXXXXX" 
-                                class="w-full bg-slate-50 text-slate-900 border border-slate-300 focus:border-[#2E9578] rounded-xl px-3 py-2.5 text-xs focus:outline-none"
-                            >
-                        </div>
 
                         <!-- Delivery Area Selection (Inside / Outside Nasheman) -->
                         <div id="deliveryAreaContainer">
@@ -658,7 +636,7 @@
                             <label class="block text-slate-700 font-semibold mb-1">Select Payment Method</label>
                             <select id="custPayment" onchange="handlePaymentChange(this.value)" class="w-full bg-slate-50 text-slate-900 border border-slate-300 rounded-xl px-3 py-2.5 text-xs focus:outline-none focus:border-[#2E9578] font-medium">
                                 <option value="Cash on Delivery" selected>Cash on Delivery (COD)</option>
-                                <option value="JazzCash / Online Transfer">JazzCash / Online Transfer</option>
+                                <option value="JazzCash / Easypaisa / Online Transfer">JazzCash / Easypaisa / Online Transfer</option>
                             </select>
                         </div>
 
@@ -670,7 +648,7 @@
                                         <i class="fa-solid fa-money-bill-transfer"></i>
                                     </span>
                                     <div>
-                                        <h5 class="text-xs font-black text-slate-900">Direct JazzCash / Online Transfer</h5>
+                                        <h5 class="text-xs font-black text-slate-900">JazzCash &amp; Easypaisa Accounts</h5>
                                         <span class="text-[10px] text-slate-600">Account Title: <strong class="text-slate-900 font-bold">Shakir Hussain</strong></span>
                                     </div>
                                 </div>
@@ -679,11 +657,14 @@
                                 </span>
                             </div>
 
-                            <!-- Account 1 -->
+                            <!-- JazzCash Account -->
                             <div class="bg-white p-2.5 rounded-xl border border-[#a8dcce] flex items-center justify-between gap-2">
                                 <div class="min-w-0 flex-1">
-                                    <span class="text-[10px] text-slate-500 block font-medium">JazzCash Account • Shakir Hussain</span>
-                                    <span class="text-xs font-black text-[#2E9578] tracking-wider font-mono block">0316-5265885</span>
+                                    <div class="flex items-center gap-1.5">
+                                        <span class="text-[10px] font-bold text-amber-700 bg-amber-50 border border-amber-200 px-1.5 py-0.2 rounded">JazzCash</span>
+                                        <span class="text-[10px] text-slate-500 font-medium">Title: <strong class="text-slate-800">Shakir Hussain</strong></span>
+                                    </div>
+                                    <span class="text-xs font-black text-[#2E9578] tracking-wider font-mono block mt-0.5">0316-5265885</span>
                                 </div>
                                 <button 
                                     type="button"
@@ -696,8 +677,28 @@
                                 </button>
                             </div>
 
+                            <!-- Easypaisa Account -->
+                            <div class="bg-white p-2.5 rounded-xl border border-[#a8dcce] flex items-center justify-between gap-2">
+                                <div class="min-w-0 flex-1">
+                                    <div class="flex items-center gap-1.5">
+                                        <span class="text-[10px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-1.5 py-0.2 rounded">Easypaisa</span>
+                                        <span class="text-[10px] text-slate-500 font-medium">Title: <strong class="text-slate-800">Shakir Hussain</strong></span>
+                                    </div>
+                                    <span class="text-xs font-black text-[#2E9578] tracking-wider font-mono block mt-0.5">0316-5265885</span>
+                                </div>
+                                <button 
+                                    type="button"
+                                    onclick="copyToClipboard('03165265885', 'accBtn2')" 
+                                    id="accBtn2"
+                                    class="bg-[#2E9578] hover:bg-[#247861] text-white text-xs font-black px-3 py-1.5 rounded-lg flex items-center gap-1.5 active:scale-95 transition shadow-sm shrink-0"
+                                >
+                                    <i class="fa-regular fa-copy"></i>
+                                    <span>Copy</span>
+                                </button>
+                            </div>
+
                             <p class="text-[10px] text-slate-500 italic text-center">
-                                * Transfer payment & share screenshot on WhatsApp (0321-0083737) after order submission.
+                                * Transfer payment &amp; share screenshot on WhatsApp (0321-0083737) after order submission.
                             </p>
                         </div>
                     </div>
@@ -1908,23 +1909,9 @@
                 return;
             }
 
-            const custName = document.getElementById('custName').value.trim();
-            const custPhone = document.getElementById('custPhone').value.trim();
-            const address = document.getElementById('custAddress').value.trim();
-            const notes = document.getElementById('custNotes').value.trim();
+            const address = (document.getElementById('custAddress') ? document.getElementById('custAddress').value.trim() : '');
+            const notes = (document.getElementById('custNotes') ? document.getElementById('custNotes').value.trim() : '');
             const payment = document.getElementById('custPayment').value;
-
-            if (!custName) {
-                showToast("Please enter your name!");
-                document.getElementById('custName').focus();
-                return;
-            }
-
-            if (!custPhone) {
-                showToast("Please enter your phone number!");
-                document.getElementById('custPhone').focus();
-                return;
-            }
 
             if (serviceType === 'Home Delivery' && !address) {
                 showToast("Please enter your delivery address!");
@@ -1948,8 +1935,7 @@
             message += `_Taste The Orient • Lahore_\n`;
             message += `----------------------------\n`;
             message += `*ORDER TYPE:* ${serviceType.toUpperCase()}\n`;
-            message += `*CUSTOMER:* ${custName} (${custPhone})\n`;
-            if (serviceType === 'Home Delivery') {
+                        if (serviceType === 'Home Delivery') {
                 const zoneText = deliveryArea === 'outside' ? 'Outside Nasheman-e-Iqbal (Fee: PKR 100/-)' : 'Inside Nasheman-e-Iqbal (Fee: PKR 50/-)';
                 message += `*DELIVERY ZONE:* ${zoneText}\n`;
                 message += `*DELIVERY ADDRESS:*\n${address}\n`;
@@ -1993,8 +1979,7 @@
 
             document.getElementById('receiptPreviewBox').innerHTML = `
                 <div><strong>Service:</strong> ${serviceType} (${deliveryAreaTitle})</div>
-                <div><strong>Customer:</strong> ${custName} (${custPhone})</div>
-                ${serviceType === 'Home Delivery' ? `<div><strong>Address:</strong> ${address}</div>` : ''}
+                                ${serviceType === 'Home Delivery' ? `<div><strong>Address:</strong> ${address}</div>` : ''}
                 <div><strong>Payment:</strong> ${payment}</div>
                 <div><strong>Total Items:</strong> ${cart.length} dish(es)</div>
                 <div><strong>Subtotal:</strong> PKR ${totalPrice.toLocaleString()}/-</div>
