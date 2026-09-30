@@ -231,39 +231,55 @@
         // ADMIN PRODUCTS LIST (matches MENU_DATA in index.html)
         // ============================================================
         const ADMIN_PRODUCTS = [
+            // Soup
             { id: 'hot_sour_soup', name: 'Hot & Sour Soup', category: 'Soup' },
             { id: 'chicken_corn_soup', name: 'Chicken Corn Soup', category: 'Soup' },
             { id: 'szechuan_soup', name: 'Szechuan Soup', category: 'Soup' },
             { id: 'thai_clear_soup', name: 'Thai Clear Soup', category: 'Soup' },
             { id: 'wok_special_soup', name: 'WOK Special Soup', category: 'Soup' },
+            // Appetizers
             { id: 'chicken_tempura', name: 'Chicken Tempura', category: 'Appetizers' },
             { id: 'honey_glazed_wings', name: 'Honey Glazed Wings (5pcs)', category: 'Appetizers' },
             { id: 'tempura_prawns', name: 'Tempura Prawns (5pcs)', category: 'Appetizers' },
             { id: 'chicken_momos', name: 'Chicken Momos (6pcs)', category: 'Appetizers' },
             { id: 'chicken_drum_stick', name: 'Chicken Drum Stick', category: 'Appetizers' },
             { id: 'dynamite_prawns', name: 'Dynamite Prawns', category: 'Appetizers' },
+            // Noodles
             { id: 'chicken_chowmein', name: 'Chicken Chowmein', category: 'Noodles' },
             { id: 'vegetable_chowmein', name: 'Vegetable Chowmein', category: 'Noodles' },
             { id: 'wok_special_chowmein', name: 'Wok Special Chowmein', category: 'Noodles' },
             { id: 'stir_fried_chicken_chilli_noodles', name: 'Stir Fried Chicken Chilli Noodles', category: 'Noodles' },
             { id: 'stir_fried_beef_chilli_noodles', name: 'Stir Fried Beef Chilli Noodles', category: 'Noodles' },
+            // Rice
             { id: 'egg_fried_rice', name: 'Egg Fried Rice', category: 'Rice' },
             { id: 'vegetable_fried_rice', name: 'Vegetable Fried Rice', category: 'Rice' },
             { id: 'chicken_fried_rice', name: 'Chicken Fried Rice', category: 'Rice' },
             { id: 'masala_rice', name: 'Masala Rice', category: 'Rice' },
             { id: 'wok_special_rice', name: 'Wok Special Rice', category: 'Rice' },
-            { id: 'kung_pao', name: 'Kung Pao', category: 'Main Course' },
-            { id: 'szechuan', name: 'Szechuan', category: 'Main Course' },
-            { id: 'chilli_dry', name: 'Chilli Dry', category: 'Main Course' },
-            { id: 'black_pepper', name: 'Black Pepper', category: 'Main Course' },
-            { id: 'mongolian', name: 'Mongolian', category: 'Main Course' },
-            { id: 'manchurian', name: 'Manchurian', category: 'Main Course' },
-            { id: 'sweet_sour', name: 'Sweet & Sour', category: 'Main Course' },
-            { id: 'hot_garlic', name: 'Hot Garlic', category: 'Main Course' },
-            { id: 'cashew_nut', name: 'Cashew Nut', category: 'Main Course' },
-            { id: 'oyster_sauce', name: 'Oyster Sauce', category: 'Main Course' },
-            { id: 'bankok_chilli', name: 'Bankok Chilli', category: 'Main Course' },
-            { id: 'crispy_sesame_beef', name: 'Crispy Sesame Beef', category: 'Main Course' }
+            // Main Course (Individual protein options!)
+            { id: 'kung_pao_chicken', dishId: 'kung_pao', name: 'Kung Pao - Chicken', dishName: 'Kung Pao', protein: 'Chicken', category: 'Main Course' },
+            { id: 'kung_pao_beef', dishId: 'kung_pao', name: 'Kung Pao - Beef', dishName: 'Kung Pao', protein: 'Beef', category: 'Main Course' },
+            { id: 'szechuan_chicken', dishId: 'szechuan', name: 'Szechuan - Chicken', dishName: 'Szechuan', protein: 'Chicken', category: 'Main Course' },
+            { id: 'szechuan_beef', dishId: 'szechuan', name: 'Szechuan - Beef', dishName: 'Szechuan', protein: 'Beef', category: 'Main Course' },
+            { id: 'szechuan_fish', dishId: 'szechuan', name: 'Szechuan - Fish', dishName: 'Szechuan', protein: 'Fish', category: 'Main Course' },
+            { id: 'chilli_dry_chicken', dishId: 'chilli_dry', name: 'Chilli Dry - Chicken', dishName: 'Chilli Dry', protein: 'Chicken', category: 'Main Course' },
+            { id: 'chilli_dry_beef', dishId: 'chilli_dry', name: 'Chilli Dry - Beef', dishName: 'Chilli Dry', protein: 'Beef', category: 'Main Course' },
+            { id: 'chilli_dry_fish', dishId: 'chilli_dry', name: 'Chilli Dry - Fish', dishName: 'Chilli Dry', protein: 'Fish', category: 'Main Course' },
+            { id: 'black_pepper_chicken', dishId: 'black_pepper', name: 'Black Pepper - Chicken', dishName: 'Black Pepper', protein: 'Chicken', category: 'Main Course' },
+            { id: 'mongolian_chicken', dishId: 'mongolian', name: 'Mongolian - Chicken', dishName: 'Mongolian', protein: 'Chicken', category: 'Main Course' },
+            { id: 'mongolian_beef', dishId: 'mongolian', name: 'Mongolian - Beef', dishName: 'Mongolian', protein: 'Beef', category: 'Main Course' },
+            { id: 'manchurian_chicken', dishId: 'manchurian', name: 'Manchurian - Chicken', dishName: 'Manchurian', protein: 'Chicken', category: 'Main Course' },
+            { id: 'sweet_sour_chicken', dishId: 'sweet_sour', name: 'Sweet & Sour - Chicken', dishName: 'Sweet & Sour', protein: 'Chicken', category: 'Main Course' },
+            { id: 'sweet_sour_fish', dishId: 'sweet_sour', name: 'Sweet & Sour - Fish', dishName: 'Sweet & Sour', protein: 'Fish', category: 'Main Course' },
+            { id: 'hot_garlic_chicken', dishId: 'hot_garlic', name: 'Hot Garlic - Chicken', dishName: 'Hot Garlic', protein: 'Chicken', category: 'Main Course' },
+            { id: 'hot_garlic_fish', dishId: 'hot_garlic', name: 'Hot Garlic - Fish', dishName: 'Hot Garlic', protein: 'Fish', category: 'Main Course' },
+            { id: 'cashew_nut_chicken', dishId: 'cashew_nut', name: 'Cashew Nut - Chicken', dishName: 'Cashew Nut', protein: 'Chicken', category: 'Main Course' },
+            { id: 'oyster_sauce_chicken', dishId: 'oyster_sauce', name: 'Oyster Sauce - Chicken', dishName: 'Oyster Sauce', protein: 'Chicken', category: 'Main Course' },
+            { id: 'oyster_sauce_beef', dishId: 'oyster_sauce', name: 'Oyster Sauce - Beef', dishName: 'Oyster Sauce', protein: 'Beef', category: 'Main Course' },
+            { id: 'oyster_sauce_fish', dishId: 'oyster_sauce', name: 'Oyster Sauce - Fish', dishName: 'Oyster Sauce', protein: 'Fish', category: 'Main Course' },
+            { id: 'bankok_chilli_chicken', dishId: 'bankok_chilli', name: 'Bankok Chilli - Chicken', dishName: 'Bankok Chilli', protein: 'Chicken', category: 'Main Course' },
+            { id: 'bankok_chilli_beef', dishId: 'bankok_chilli', name: 'Bankok Chilli - Beef', dishName: 'Bankok Chilli', protein: 'Beef', category: 'Main Course' },
+            { id: 'crispy_sesame_beef_beef', dishId: 'crispy_sesame_beef', name: 'Crispy Sesame Beef - Beef', dishName: 'Crispy Sesame Beef', protein: 'Beef', category: 'Main Course' }
         ];
         const CATEGORIES = ['Soup', 'Appetizers', 'Noodles', 'Rice', 'Main Course'];
 
@@ -569,17 +585,64 @@
             CATEGORIES.forEach(cat => {
                 const prods = ADMIN_PRODUCTS.filter(p => p.category === cat);
                 html += `<div><h3 class="text-[11px] font-black text-slate-400 uppercase tracking-widest mb-2 flex items-center gap-1.5"><i class="fa-solid ${catIcons[cat] || 'fa-tag'} text-[#2E9578] text-[10px]"></i> ${cat} <span class="text-[10px] font-bold text-slate-300">(${prods.length})</span></h3>`;
-                prods.forEach(p => {
-                    const avail = availability[p.id] !== false;
-                    html += `
-                        <div class="bg-white border ${avail ? 'border-slate-200' : 'border-red-200 bg-red-50/40'} rounded-xl px-3.5 py-2.5 flex items-center justify-between mb-1.5 transition-all">
-                            <div class="flex items-center gap-2 min-w-0 flex-1">
-                                <span class="w-2 h-2 rounded-full ${avail ? 'bg-emerald-500' : 'bg-red-400'} shrink-0"></span>
-                                <span class="text-xs font-bold ${avail ? 'text-slate-900' : 'text-slate-400 line-through'} truncate">${p.name}</span>
-                            </div>
-                            <div class="toggle-switch ${avail ? 'active' : ''}" onclick="toggleAvailability('${p.id}', ${!avail})"></div>
-                        </div>`;
-                });
+
+                if (cat === 'Main Course') {
+                    // Group Main Course by dishName
+                    const dishGroups = {};
+                    prods.forEach(p => {
+                        if (!dishGroups[p.dishName]) dishGroups[p.dishName] = [];
+                        dishGroups[p.dishName].push(p);
+                    });
+
+                    Object.keys(dishGroups).forEach(dName => {
+                        const dProds = dishGroups[dName];
+                        const allOff = dProds.every(p => availability[p.id] === false);
+
+                        html += `
+                            <div class="bg-white border ${allOff ? 'border-red-200 bg-red-50/20' : 'border-slate-200'} rounded-2xl p-3 mb-2.5 shadow-xs transition-all">
+                                <div class="flex items-center justify-between mb-2 pb-1.5 border-b border-slate-100">
+                                    <div class="flex items-center gap-2">
+                                        <span class="w-2 h-2 rounded-full ${allOff ? 'bg-red-400' : 'bg-emerald-500'}"></span>
+                                        <span class="text-xs font-black text-slate-900">${dName}</span>
+                                    </div>
+                                    <span class="text-[10px] font-bold text-slate-400">${dProds.length} Protein Option${dProds.length > 1 ? 's' : ''}</span>
+                                </div>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
+                        `;
+
+                        dProds.forEach(p => {
+                            const avail = availability[p.id] !== false;
+                            const proteinBadge = p.protein === 'Chicken' 
+                                ? '🍗 Chicken' 
+                                : (p.protein === 'Beef' ? '🥩 Beef' : '🐟 Fish');
+
+                            html += `
+                                <div class="bg-slate-50/90 border ${avail ? 'border-slate-200' : 'border-red-200 bg-red-50/60'} rounded-xl px-3 py-2 flex items-center justify-between transition-all">
+                                    <div class="flex items-center gap-2 min-w-0 flex-1">
+                                        <span class="w-1.5 h-1.5 rounded-full ${avail ? 'bg-emerald-500' : 'bg-red-400'} shrink-0"></span>
+                                        <span class="text-xs font-bold ${avail ? 'text-slate-800' : 'text-slate-400 line-through'} truncate">${proteinBadge}</span>
+                                    </div>
+                                    <div class="toggle-switch ${avail ? 'active' : ''}" onclick="toggleAvailability('${p.id}', ${!avail})"></div>
+                                </div>
+                            `;
+                        });
+
+                        html += `</div></div>`;
+                    });
+
+                } else {
+                    prods.forEach(p => {
+                        const avail = availability[p.id] !== false;
+                        html += `
+                            <div class="bg-white border ${avail ? 'border-slate-200' : 'border-red-200 bg-red-50/40'} rounded-xl px-3.5 py-2.5 flex items-center justify-between mb-1.5 transition-all">
+                                <div class="flex items-center gap-2 min-w-0 flex-1">
+                                    <span class="w-2 h-2 rounded-full ${avail ? 'bg-emerald-500' : 'bg-red-400'} shrink-0"></span>
+                                    <span class="text-xs font-bold ${avail ? 'text-slate-900' : 'text-slate-400 line-through'} truncate">${p.name}</span>
+                                </div>
+                                <div class="toggle-switch ${avail ? 'active' : ''}" onclick="toggleAvailability('${p.id}', ${!avail})"></div>
+                            </div>`;
+                    });
+                }
                 html += '</div>';
             });
             container.innerHTML = html;

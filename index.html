@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>YUM WOK | Pan Asian • Lahore</title>
-    <meta name="description" content="YUM WOK Pan Asian Restaurant. Authentic Soups, Appetizers, Chowmein, Fried Rice, Kung Pao, Chilli Dry & Seafood in Lahore. Home Delivery & Take Away!">
+    <meta name="description" content="YUM WOK Pan Asian Restaurant. Authentic Soups, Appetizers, Chowmein, Fried Rice, Kung Pao, Chilli Dry & Fish in Lahore. Home Delivery & Take Away!">
     
     <!-- Google Fonts (Outfit & Plus Jakarta Sans) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -798,7 +798,8 @@
                 { id: 'appetizers', name: 'Appetizers', badge: 'Crispy Tempura & Wings' },
                 { id: 'noodles', name: 'Noodles', badge: 'Wok Chowmein' },
                 { id: 'rice', name: 'Rice', badge: 'Fried & Masala' },
-                { id: 'main_course', name: 'Main Course', badge: 'Served with Fried Rice' }
+                { id: 'main_course', name: 'Main Course', badge: 'Served with Fried Rice' },
+                { id: 'chef_recommendation', name: '👨‍🍳 Chef Recommendation', badge: "Chef's Special Picks" }
             ],
             
             items: [
@@ -862,6 +863,7 @@
                     desc: 'Special Asian style simmered soup featuring a rich, comforting light broth loaded with fresh ingredients and savory flavor.',
                     image: 'images/wok_special_soup.jpg',
                     isPopular: false,
+                    isChefRecommendation: true,
                     type: 'size_variant',
                     variants: [
                         { name: 'Single Portion', price: 350, label: 'Single' },
@@ -898,6 +900,7 @@
                     price: 1000,
                     image: 'images/tempura_prawns.jpg',
                     isPopular: false,
+                    isChefRecommendation: true,
                     type: 'fixed'
                 },
                 {
@@ -994,6 +997,7 @@
                     desc: 'Chinese style stir fried noodles with sliced beef and chili peppers featuring a savory and spicy flavor.',
                     image: 'images/stir_fried_beef_chilli_noodles.jpg',
                     isPopular: false,
+                    isChefRecommendation: true,
                     type: 'size_variant',
                     variants: [
                         { name: 'Single Portion', price: 650, label: 'Single' },
@@ -1069,14 +1073,15 @@
                 },
 
                 // ==================== MAIN COURSE ====================
-                // All single entries served with option of Egg Fried Rice, Vegetable Fried Rice, or Vegetable Chowmein
+                // All single entries served with option of Egg Fried Rice or Vegetable Fried Rice
                 {
                     id: 'kung_pao',
                     category: 'main_course',
                     name: 'Kung Pao',
-                    desc: 'Chinese style stir fried tender chicken featuring a savory and spicy flavor.',
+                    desc: 'Chinese style stir fried tender meat featuring a savory and spicy flavor.',
                     image: 'images/kung_pao.jpg',
                     isPopular: false,
+                    isChefRecommendation: true,
                     type: 'main_course_variant',
                     variants: [
                         { name: 'Chicken (Single)', protein: 'Chicken', size: 'Single', price: 700, hasSide: true },
@@ -1089,7 +1094,7 @@
                     id: 'szechuan',
                     category: 'main_course',
                     name: 'Szechuan',
-                    desc: 'Chinese style stir fried tender chicken featuring a savory and spicy flavor.',
+                    desc: 'Chinese style stir fried tender meat or fish featuring a savory and spicy flavor.',
                     image: 'images/szechuan.jpg',
                     isPopular: false,
                     type: 'main_course_variant',
@@ -1097,22 +1102,27 @@
                         { name: 'Chicken (Single)', protein: 'Chicken', size: 'Single', price: 700, hasSide: true },
                         { name: 'Chicken (Full)', protein: 'Chicken', size: 'Full', price: 950, hasSide: false },
                         { name: 'Beef (Single)', protein: 'Beef', size: 'Single', price: 800, hasSide: true },
-                        { name: 'Beef (Full)', protein: 'Beef', size: 'Full', price: 1100, hasSide: false }
+                        { name: 'Beef (Full)', protein: 'Beef', size: 'Full', price: 1100, hasSide: false },
+                        { name: 'Fish (Single)', protein: 'Fish', size: 'Single', price: 900, hasSide: true },
+                        { name: 'Fish (Full)', protein: 'Fish', size: 'Full', price: 1250, hasSide: false }
                     ]
                 },
                 {
                     id: 'chilli_dry',
                     category: 'main_course',
                     name: 'Chilli Dry',
-                    desc: 'Chinese style stir fried tender chicken featuring a savory and spicy flavor.',
+                    desc: 'Chinese style stir fried tender meat or fish featuring a savory and spicy flavor.',
                     image: 'images/chilli_dry.jpg',
                     isPopular: false,
+                    isChefRecommendation: true,
                     type: 'main_course_variant',
                     variants: [
                         { name: 'Chicken (Single)', protein: 'Chicken', size: 'Single', price: 750, hasSide: true },
                         { name: 'Chicken (Full)', protein: 'Chicken', size: 'Full', price: 1000, hasSide: false },
                         { name: 'Beef (Single)', protein: 'Beef', size: 'Single', price: 850, hasSide: true },
-                        { name: 'Beef (Full)', protein: 'Beef', size: 'Full', price: 1150, hasSide: false }
+                        { name: 'Beef (Full)', protein: 'Beef', size: 'Full', price: 1150, hasSide: false },
+                        { name: 'Fish (Single)', protein: 'Fish', size: 'Single', price: 950, hasSide: true },
+                        { name: 'Fish (Full)', protein: 'Fish', size: 'Full', price: 1300, hasSide: false }
                     ]
                 },
                 {
@@ -1132,7 +1142,7 @@
                     id: 'mongolian',
                     category: 'main_course',
                     name: 'Mongolian',
-                    desc: 'Asian style stir fried tender chicken featuring a savory and mildly sweet flavor.',
+                    desc: 'Asian style stir fried tender chicken or beef featuring a savory and mildly sweet flavor.',
                     image: 'images/mongolian.jpg',
                     isPopular: false,
                     type: 'main_course_variant',
@@ -1153,37 +1163,38 @@
                     type: 'main_course_variant',
                     variants: [
                         { name: 'Chicken (Single)', protein: 'Chicken', size: 'Single', price: 700, hasSide: true },
-                        { name: 'Chicken (Full)', protein: 'Chicken', size: 'Full', price: 950, hasSide: false },
-                        { name: 'Sea Food (Single)', protein: 'Sea Food', size: 'Single', price: 900, hasSide: true },
-                        { name: 'Sea Food (Full)', protein: 'Sea Food', size: 'Full', price: 1250, hasSide: false }
+                        { name: 'Chicken (Full)', protein: 'Chicken', size: 'Full', price: 950, hasSide: false }
                     ]
                 },
                 {
                     id: 'sweet_sour',
                     category: 'main_course',
                     name: 'Sweet & Sour',
-                    desc: 'Chinese style stir fried chicken featuring a balanced savory, sweet, and tangy flavor.',
+                    desc: 'Chinese style stir fried chicken or fish featuring a balanced savory, sweet, and tangy flavor.',
                     image: 'images/sweet_sour.jpg',
                     isPopular: false,
                     type: 'main_course_variant',
                     variants: [
                         { name: 'Chicken (Single)', protein: 'Chicken', size: 'Single', price: 700, hasSide: true },
                         { name: 'Chicken (Full)', protein: 'Chicken', size: 'Full', price: 950, hasSide: false },
-                        { name: 'Sea Food (Single)', protein: 'Sea Food', size: 'Single', price: 950, hasSide: true },
-                        { name: 'Sea Food (Full)', protein: 'Sea Food', size: 'Full', price: 1300, hasSide: false }
+                        { name: 'Fish (Single)', protein: 'Fish', size: 'Single', price: 900, hasSide: true },
+                        { name: 'Fish (Full)', protein: 'Fish', size: 'Full', price: 1250, hasSide: false }
                     ]
                 },
                 {
                     id: 'hot_garlic',
                     category: 'main_course',
                     name: 'Hot Garlic',
-                    desc: 'Chinese style stir fried tender chicken featuring a savory and spicy garlic flavor.',
+                    desc: 'Chinese style stir fried tender chicken or fish featuring a savory and spicy garlic flavor.',
                     image: 'images/hot_garlic.jpg',
                     isPopular: false,
+                    isChefRecommendation: true,
                     type: 'main_course_variant',
                     variants: [
                         { name: 'Chicken (Single)', protein: 'Chicken', size: 'Single', price: 700, hasSide: true },
-                        { name: 'Chicken (Full)', protein: 'Chicken', size: 'Full', price: 950, hasSide: false }
+                        { name: 'Chicken (Full)', protein: 'Chicken', size: 'Full', price: 950, hasSide: false },
+                        { name: 'Fish (Single)', protein: 'Fish', size: 'Single', price: 900, hasSide: true },
+                        { name: 'Fish (Full)', protein: 'Fish', size: 'Full', price: 1250, hasSide: false }
                     ]
                 },
                 {
@@ -1193,6 +1204,7 @@
                     desc: 'Chinese style stir fried tender chicken featuring a savory and mildly sweet flavor.',
                     image: 'images/cashew_nut.jpg',
                     isPopular: false,
+                    isChefRecommendation: true,
                     type: 'main_course_variant',
                     variants: [
                         { name: 'Chicken (Single)', protein: 'Chicken', size: 'Single', price: 750, hasSide: true },
@@ -1203,7 +1215,7 @@
                     id: 'oyster_sauce',
                     category: 'main_course',
                     name: 'Oyster Sauce',
-                    desc: 'Stir-fried tender meat or chicken coated in a rich, savory, and umami-packed oyster sauce.',
+                    desc: 'Stir-fried tender meat or fish coated in a rich, savory, and umami-packed oyster sauce.',
                     image: 'images/oyster_sauce.jpg',
                     isPopular: false,
                     type: 'main_course_variant',
@@ -1211,14 +1223,16 @@
                         { name: 'Chicken (Single)', protein: 'Chicken', size: 'Single', price: 700, hasSide: true },
                         { name: 'Chicken (Full)', protein: 'Chicken', size: 'Full', price: 950, hasSide: false },
                         { name: 'Beef (Single)', protein: 'Beef', size: 'Single', price: 800, hasSide: true },
-                        { name: 'Beef (Full)', protein: 'Beef', size: 'Full', price: 1100, hasSide: false }
+                        { name: 'Beef (Full)', protein: 'Beef', size: 'Full', price: 1100, hasSide: false },
+                        { name: 'Fish (Single)', protein: 'Fish', size: 'Single', price: 900, hasSide: true },
+                        { name: 'Fish (Full)', protein: 'Fish', size: 'Full', price: 1250, hasSide: false }
                     ]
                 },
                 {
                     id: 'bankok_chilli',
                     category: 'main_course',
                     name: 'Bankok Chilli',
-                    desc: 'Thai style stir-fried chicken cooked with fresh chilies featuring a bold, spicy, and tangy flavor.',
+                    desc: 'Thai style stir-fried chicken or beef cooked with fresh chilies featuring a bold, spicy, and tangy flavor.',
                     image: 'images/bankok_chilli.jpg',
                     isPopular: false,
                     type: 'main_course_variant',
@@ -1226,9 +1240,7 @@
                         { name: 'Chicken (Single)', protein: 'Chicken', size: 'Single', price: 750, hasSide: true },
                         { name: 'Chicken (Full)', protein: 'Chicken', size: 'Full', price: 1000, hasSide: false },
                         { name: 'Beef (Single)', protein: 'Beef', size: 'Single', price: 850, hasSide: true },
-                        { name: 'Beef (Full)', protein: 'Beef', size: 'Full', price: 1150, hasSide: false },
-                        { name: 'Sea Food (Single)', protein: 'Sea Food', size: 'Single', price: 900, hasSide: true },
-                        { name: 'Sea Food (Full)', protein: 'Sea Food', size: 'Full', price: 1250, hasSide: false }
+                        { name: 'Beef (Full)', protein: 'Beef', size: 'Full', price: 1150, hasSide: false }
                     ]
                 },
                 {
@@ -1241,9 +1253,7 @@
                     type: 'main_course_variant',
                     variants: [
                         { name: 'Beef (Single)', protein: 'Beef', size: 'Single', price: 850, hasSide: true },
-                        { name: 'Beef (Full)', protein: 'Beef', size: 'Full', price: 1150, hasSide: false },
-                        { name: 'Sea Food (Single)', protein: 'Sea Food', size: 'Single', price: 900, hasSide: true },
-                        { name: 'Sea Food (Full)', protein: 'Sea Food', size: 'Full', price: 1250, hasSide: false }
+                        { name: 'Beef (Full)', protein: 'Beef', size: 'Full', price: 1150, hasSide: false }
                     ]
                 }
             ]
@@ -1285,6 +1295,44 @@
             fetchAvailability();
         });
 
+        // --- AVAILABILITY HELPER FUNCTIONS ---
+        function isItemFullyUnavailable(item) {
+            if (!item) return false;
+            if (unavailableItems.has(item.id)) return true;
+            if (item.variants && item.variants.length > 0 && item.category === 'main_course') {
+                const proteins = [...new Set(item.variants.map(v => v.protein).filter(Boolean))];
+                if (proteins.length > 0) {
+                    const allProteinsDisabled = proteins.every(p => unavailableItems.has(`${item.id}_${p.toLowerCase().replace(/\s+/g, '_')}`));
+                    if (allProteinsDisabled) return true;
+                }
+            }
+            return false;
+        }
+
+        function isVariantAvailable(item, variant) {
+            if (!item || !variant) return false;
+            if (unavailableItems.has(item.id)) return false;
+            if (variant.protein) {
+                const proteinKey = `${item.id}_${variant.protein.toLowerCase().replace(/\s+/g, '_')}`;
+                if (unavailableItems.has(proteinKey)) return false;
+            }
+            return true;
+        }
+
+        function cleanCartUnavailableItems() {
+            const before = cart.length;
+            cart = cart.filter(item => {
+                if (unavailableItems.has(item.id)) return false;
+                if (item.availKey && unavailableItems.has(item.availKey)) return false;
+                return true;
+            });
+            if (cart.length !== before) {
+                saveCartToStorage();
+                updateCartUI();
+                showToast('Some unavailable items were removed from your basket');
+            }
+        }
+
         // --- SUPABASE: Real-time product availability ---
         async function fetchAvailability() {
             if (!supabaseClient) return;
@@ -1302,13 +1350,7 @@
                         }
                     });
                     renderProducts();
-                    const before = cart.length;
-                    cart = cart.filter(item => !unavailableItems.has(item.id));
-                    if (cart.length !== before) {
-                        saveCartToStorage();
-                        updateCartUI();
-                        showToast('Some unavailable items were removed from your basket');
-                    }
+                    cleanCartUnavailableItems();
                 }
 
                 // Real-time listener for updates
@@ -1325,13 +1367,7 @@
                             unavailableItems.delete(payload.old.product_id);
                         }
                         renderProducts();
-                        const before = cart.length;
-                        cart = cart.filter(item => !unavailableItems.has(item.id));
-                        if (cart.length !== before) {
-                            saveCartToStorage();
-                            updateCartUI();
-                            showToast('Some unavailable items were removed from your basket');
-                        }
+                        cleanCartUnavailableItems();
                     })
                     .subscribe();
             } catch(e) {
@@ -1418,7 +1454,9 @@
             let filtered = MENU_DATA.items;
 
             // Filter by Category
-            if (currentCategory !== 'all') {
+            if (currentCategory === 'chef_recommendation') {
+                filtered = filtered.filter(item => item.isChefRecommendation === true);
+            } else if (currentCategory !== 'all') {
                 filtered = filtered.filter(item => item.category === currentCategory);
             }
 
@@ -1445,6 +1483,7 @@
                 // Calculate starting price or range
                 let priceDisplay = '';
                 let sideBadge = '';
+                let chefBadge = '';
 
                 if (item.type === 'fixed') {
                     priceDisplay = `PKR ${item.price.toLocaleString()}/-`;
@@ -1461,7 +1500,15 @@
                     `;
                 }
 
-                const isUnavailable = unavailableItems.has(item.id);
+                if (item.isChefRecommendation) {
+                    chefBadge = `
+                        <span class="text-[9px] font-extrabold text-amber-800 bg-amber-50 border border-amber-200 px-1.5 py-0.5 rounded flex items-center gap-1 mt-1 w-fit">
+                            <i class="fa-solid fa-fire text-amber-500 text-[8px]"></i> Chef's Recommendation
+                        </span>
+                    `;
+                }
+
+                const isUnavailable = isItemFullyUnavailable(item);
 
                 return `
                     <div class="glass-card-light rounded-2xl p-3 shadow-sm ${isUnavailable ? 'opacity-60' : 'hover:shadow-md'} transition-all duration-200 flex items-center gap-3 border ${isUnavailable ? 'border-red-200' : 'border-slate-200'} relative">
@@ -1486,6 +1533,7 @@
                                     ${item.desc}
                                 </p>
                                 ${sideBadge}
+                                ${chefBadge}
                             </div>
 
                             <div class="mt-2 flex items-center justify-between">
@@ -1532,15 +1580,21 @@
 
         // --- 7. ITEM MODAL & SELECTION LOGIC ---
         function openItemModalById(id) {
-            if (unavailableItems.has(id)) {
-                showToast('This item is currently unavailable');
-                return;
-            }
             const item = MENU_DATA.items.find(i => i.id === id);
             if (!item) return;
 
+            if (isItemFullyUnavailable(item)) {
+                showToast('This item is currently unavailable');
+                return;
+            }
+
             activeModalItem = item;
-            selectedVariantIndex = 0;
+            let defaultIdx = 0;
+            if (item.variants && item.variants.length > 0) {
+                const firstAvail = item.variants.findIndex(v => isVariantAvailable(item, v));
+                if (firstAvail > -1) defaultIdx = firstAvail;
+            }
+            selectedVariantIndex = defaultIdx;
             selectedComplimentarySide = 'Egg Fried Rice';
             modalQty = 1;
             document.getElementById('modalQtyDisplay').textContent = modalQty;
@@ -1563,32 +1617,40 @@
                             <span class="text-[10px] text-[#2E9578] font-extrabold">${item.variants.length} Options</span>
                         </h4>
                         <div class="grid grid-cols-1 gap-2">
-                            ${item.variants.map((v, idx) => `
-                                <button 
-                                    onclick="selectModalVariantIndex(${idx})" 
-                                    id="modalVariantBtn_${idx}"
-                                    class="variant-btn w-full text-left p-3 rounded-xl border text-xs font-bold transition flex items-center justify-between ${
-                                        idx === 0 
-                                            ? 'border-[#2E9578] bg-[#edf8f5] text-[#2E9578] shadow-sm' 
-                                            : 'border-slate-200 bg-white text-slate-800 hover:border-[#2E9578]'
-                                    }"
-                                >
-                                    <div class="flex items-center gap-2">
-                                        <span class="w-4 h-4 rounded-full border flex items-center justify-center ${idx === 0 ? 'border-[#2E9578] bg-[#2E9578] text-white' : 'border-slate-300'}">
-                                            ${idx === 0 ? '<i class="fa-solid fa-check text-[8px]"></i>' : ''}
-                                        </span>
-                                        <span>${v.name}</span>
-                                    </div>
-                                    <span class="font-black text-[#2E9578] text-sm">PKR ${v.price.toLocaleString()}/-</span>
-                                </button>
-                            `).join('')}
+                            ${item.variants.map((v, idx) => {
+                                const isAvail = isVariantAvailable(item, v);
+                                return `
+                                    <button 
+                                        ${isAvail ? `onclick="selectModalVariantIndex(${idx})"` : 'disabled'} 
+                                        id="modalVariantBtn_${idx}"
+                                        class="variant-btn w-full text-left p-3 rounded-xl border text-xs font-bold transition flex items-center justify-between ${
+                                            !isAvail 
+                                                ? 'opacity-40 cursor-not-allowed bg-slate-100 border-slate-200 text-slate-400'
+                                                : (idx === selectedVariantIndex 
+                                                    ? 'border-[#2E9578] bg-[#edf8f5] text-[#2E9578] shadow-sm' 
+                                                    : 'border-slate-200 bg-white text-slate-800 hover:border-[#2E9578]')
+                                        }"
+                                    >
+                                        <div class="flex items-center gap-2">
+                                            <span class="w-4 h-4 rounded-full border flex items-center justify-center ${idx === selectedVariantIndex && isAvail ? 'border-[#2E9578] bg-[#2E9578] text-white' : 'border-slate-300'}">
+                                                ${idx === selectedVariantIndex && isAvail ? '<i class="fa-solid fa-check text-[8px]"></i>' : ''}
+                                            </span>
+                                            <span>${v.name}</span>
+                                        </div>
+                                        ${!isAvail 
+                                            ? '<span class="text-[10px] text-red-500 font-black bg-red-50 px-2 py-0.5 rounded border border-red-200">Sold Out</span>'
+                                            : `<span class="font-black text-[#2E9578] text-sm">PKR ${v.price.toLocaleString()}/-</span>`
+                                        }
+                                    </button>
+                                `;
+                            }).join('')}
                         </div>
                     </div>
                 `;
 
                 // If Main Course, add complimentary side selection container
                 if (item.category === 'main_course') {
-                    const currentVariant = item.variants[0];
+                    const currentVariant = item.variants[selectedVariantIndex];
                     const isSingle = currentVariant && currentVariant.hasSide;
 
                     variantsHtml += `
@@ -1657,9 +1719,16 @@
 
         function selectModalVariantIndex(index) {
             if (!activeModalItem || !activeModalItem.variants) return;
+            const variant = activeModalItem.variants[index];
+            if (!isVariantAvailable(activeModalItem, variant)) return;
+
             selectedVariantIndex = index;
 
             document.querySelectorAll('.variant-btn').forEach((btn, i) => {
+                const v = activeModalItem.variants[i];
+                const isAvail = isVariantAvailable(activeModalItem, v);
+                if (!isAvail) return;
+
                 if (i === index) {
                     btn.className = 'variant-btn w-full text-left p-3 rounded-xl border text-xs font-bold transition flex items-center justify-between border-[#2E9578] bg-[#edf8f5] text-[#2E9578] shadow-sm';
                     const iconSpan = btn.querySelector('span:first-child');
@@ -1674,7 +1743,6 @@
             // Toggle complimentary side section if main course
             const sideSection = document.getElementById('complimentarySideSection');
             if (sideSection && activeModalItem.category === 'main_course') {
-                const variant = activeModalItem.variants[index];
                 if (variant && variant.hasSide) {
                     sideSection.classList.remove('hidden');
                 } else {
@@ -1727,14 +1795,19 @@
             let titleName = activeModalItem.name;
             let optionsText = '';
             let price = activeModalItem.price;
+            let availKey = activeModalItem.id;
 
             if (activeModalItem.variants && activeModalItem.variants.length > 0) {
                 const v = activeModalItem.variants[selectedVariantIndex];
-                price = v.price;
-                titleName = `${activeModalItem.name} - ${v.name}`;
-
-                if (activeModalItem.category === 'main_course' && v.hasSide) {
-                    optionsText = `Side: ${selectedComplimentarySide}`;
+                if (v) {
+                    price = v.price;
+                    titleName = `${activeModalItem.name} - ${v.name}`;
+                    if (v.protein) {
+                        availKey = `${activeModalItem.id}_${v.protein.toLowerCase().replace(/\s+/g, '_')}`;
+                    }
+                    if (activeModalItem.category === 'main_course' && v.hasSide) {
+                        optionsText = `Side: ${selectedComplimentarySide}`;
+                    }
                 }
             }
 
@@ -1747,6 +1820,7 @@
                 cart.push({
                     cartItemId: cartItemId,
                     id: activeModalItem.id,
+                    availKey: availKey,
                     name: titleName,
                     optionsText: optionsText,
                     unitPrice: price,

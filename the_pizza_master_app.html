@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>YUM WOK | Pan Asian • Lahore</title>
-    <meta name="description" content="YUM WOK Pan Asian Restaurant. Authentic Soups, Appetizers, Chowmein, Fried Rice, Kung Pao, Chilli Dry & Seafood in Lahore. Home Delivery & Take Away!">
+    <meta name="description" content="YUM WOK Pan Asian Restaurant. Authentic Soups, Appetizers, Chowmein, Fried Rice, Kung Pao, Chilli Dry & Fish in Lahore. Home Delivery & Take Away!">
     
     <!-- Google Fonts (Outfit & Plus Jakarta Sans) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -793,7 +793,8 @@
                 { id: 'appetizers', name: 'Appetizers', badge: 'Crispy Tempura & Wings' },
                 { id: 'noodles', name: 'Noodles', badge: 'Wok Chowmein' },
                 { id: 'rice', name: 'Rice', badge: 'Fried & Masala' },
-                { id: 'main_course', name: 'Main Course', badge: 'Served with Rice/Chowmein' }
+                { id: 'main_course', name: 'Main Course', badge: 'Served with Fried Rice' },
+                { id: 'chef_recommendation', name: '👨‍🍳 Chef Recommendation', badge: "Chef's Special Picks" }
             ],
             
             items: [
@@ -857,6 +858,7 @@
                     desc: 'Chef’s signature rich Pan-Asian soup packed with chicken, prawns, black mushrooms & exotic spices.',
                     image: 'images/wok_special_soup.jpg',
                     isPopular: false,
+                    isChefRecommendation: true,
                     type: 'size_variant',
                     variants: [
                         { name: 'Single Portion', price: 350, label: 'Single' },
@@ -893,6 +895,7 @@
                     price: 1000,
                     image: 'images/tempura_prawns.jpg',
                     isPopular: false,
+                    isChefRecommendation: true,
                     type: 'fixed'
                 },
                 {
@@ -989,6 +992,7 @@
                     desc: 'Tender beef strips wok tossed with spicy noodles, green chilies, onions and rich dark sauce.',
                     image: 'images/stir_fried_beef_chilli_noodles.jpg',
                     isPopular: false,
+                    isChefRecommendation: true,
                     type: 'size_variant',
                     variants: [
                         { name: 'Single Portion', price: 650, label: 'Single' },
@@ -1064,7 +1068,7 @@
                 },
 
                 // ==================== MAIN COURSE ====================
-                // All single entries served with option of Egg Fried Rice, Vegetable Fried Rice, or Vegetable Chowmein
+                // All single entries served with option of Egg Fried Rice or Vegetable Fried Rice
                 {
                     id: 'kung_pao',
                     category: 'main_course',
@@ -1072,6 +1076,7 @@
                     desc: 'Famous Szechuan stir-fry with peanuts, dried red chilies, bell peppers & sweet spicy glaze.',
                     image: 'images/kung_pao.jpg',
                     isPopular: false,
+                    isChefRecommendation: true,
                     type: 'main_course_variant',
                     variants: [
                         { name: 'Chicken (Single)', protein: 'Chicken', size: 'Single', price: 700, hasSide: true },
@@ -1092,7 +1097,9 @@
                         { name: 'Chicken (Single)', protein: 'Chicken', size: 'Single', price: 700, hasSide: true },
                         { name: 'Chicken (Full)', protein: 'Chicken', size: 'Full', price: 950, hasSide: false },
                         { name: 'Beef (Single)', protein: 'Beef', size: 'Single', price: 800, hasSide: true },
-                        { name: 'Beef (Full)', protein: 'Beef', size: 'Full', price: 1100, hasSide: false }
+                        { name: 'Beef (Full)', protein: 'Beef', size: 'Full', price: 1100, hasSide: false },
+                        { name: 'Fish (Single)', protein: 'Fish', size: 'Single', price: 900, hasSide: true },
+                        { name: 'Fish (Full)', protein: 'Fish', size: 'Full', price: 1250, hasSide: false }
                     ]
                 },
                 {
@@ -1102,12 +1109,15 @@
                     desc: 'Crispy sliced meat stir-fried dry with green chilies, ginger julienne, onions and savory seasoning.',
                     image: 'images/chilli_dry.jpg',
                     isPopular: false,
+                    isChefRecommendation: true,
                     type: 'main_course_variant',
                     variants: [
                         { name: 'Chicken (Single)', protein: 'Chicken', size: 'Single', price: 750, hasSide: true },
                         { name: 'Chicken (Full)', protein: 'Chicken', size: 'Full', price: 1000, hasSide: false },
                         { name: 'Beef (Single)', protein: 'Beef', size: 'Single', price: 850, hasSide: true },
-                        { name: 'Beef (Full)', protein: 'Beef', size: 'Full', price: 1150, hasSide: false }
+                        { name: 'Beef (Full)', protein: 'Beef', size: 'Full', price: 1150, hasSide: false },
+                        { name: 'Fish (Single)', protein: 'Fish', size: 'Single', price: 950, hasSide: true },
+                        { name: 'Fish (Full)', protein: 'Fish', size: 'Full', price: 1300, hasSide: false }
                     ]
                 },
                 {
@@ -1148,9 +1158,7 @@
                     type: 'main_course_variant',
                     variants: [
                         { name: 'Chicken (Single)', protein: 'Chicken', size: 'Single', price: 700, hasSide: true },
-                        { name: 'Chicken (Full)', protein: 'Chicken', size: 'Full', price: 950, hasSide: false },
-                        { name: 'Sea Food (Single)', protein: 'Sea Food', size: 'Single', price: 900, hasSide: true },
-                        { name: 'Sea Food (Full)', protein: 'Sea Food', size: 'Full', price: 1250, hasSide: false }
+                        { name: 'Chicken (Full)', protein: 'Chicken', size: 'Full', price: 950, hasSide: false }
                     ]
                 },
                 {
@@ -1164,8 +1172,8 @@
                     variants: [
                         { name: 'Chicken (Single)', protein: 'Chicken', size: 'Single', price: 700, hasSide: true },
                         { name: 'Chicken (Full)', protein: 'Chicken', size: 'Full', price: 950, hasSide: false },
-                        { name: 'Sea Food (Single)', protein: 'Sea Food', size: 'Single', price: 950, hasSide: true },
-                        { name: 'Sea Food (Full)', protein: 'Sea Food', size: 'Full', price: 1300, hasSide: false }
+                        { name: 'Fish (Single)', protein: 'Fish', size: 'Single', price: 900, hasSide: true },
+                        { name: 'Fish (Full)', protein: 'Fish', size: 'Full', price: 1250, hasSide: false }
                     ]
                 },
                 {
@@ -1175,10 +1183,13 @@
                     desc: 'Robust roasted garlic sauce infused with red chili paste, scallions and Asian seasonings.',
                     image: 'images/hot_garlic.jpg',
                     isPopular: false,
+                    isChefRecommendation: true,
                     type: 'main_course_variant',
                     variants: [
                         { name: 'Chicken (Single)', protein: 'Chicken', size: 'Single', price: 700, hasSide: true },
-                        { name: 'Chicken (Full)', protein: 'Chicken', size: 'Full', price: 950, hasSide: false }
+                        { name: 'Chicken (Full)', protein: 'Chicken', size: 'Full', price: 950, hasSide: false },
+                        { name: 'Fish (Single)', protein: 'Fish', size: 'Single', price: 900, hasSide: true },
+                        { name: 'Fish (Full)', protein: 'Fish', size: 'Full', price: 1250, hasSide: false }
                     ]
                 },
                 {
@@ -1188,6 +1199,7 @@
                     desc: 'Stir-fried chicken with roasted crunchy cashew nuts, mushrooms, onions and light oyster glaze.',
                     image: 'images/cashew_nut.jpg',
                     isPopular: false,
+                    isChefRecommendation: true,
                     type: 'main_course_variant',
                     variants: [
                         { name: 'Chicken (Single)', protein: 'Chicken', size: 'Single', price: 750, hasSide: true },
@@ -1206,7 +1218,9 @@
                         { name: 'Chicken (Single)', protein: 'Chicken', size: 'Single', price: 700, hasSide: true },
                         { name: 'Chicken (Full)', protein: 'Chicken', size: 'Full', price: 950, hasSide: false },
                         { name: 'Beef (Single)', protein: 'Beef', size: 'Single', price: 800, hasSide: true },
-                        { name: 'Beef (Full)', protein: 'Beef', size: 'Full', price: 1100, hasSide: false }
+                        { name: 'Beef (Full)', protein: 'Beef', size: 'Full', price: 1100, hasSide: false },
+                        { name: 'Fish (Single)', protein: 'Fish', size: 'Single', price: 900, hasSide: true },
+                        { name: 'Fish (Full)', protein: 'Fish', size: 'Full', price: 1250, hasSide: false }
                     ]
                 },
                 {
@@ -1221,24 +1235,20 @@
                         { name: 'Chicken (Single)', protein: 'Chicken', size: 'Single', price: 750, hasSide: true },
                         { name: 'Chicken (Full)', protein: 'Chicken', size: 'Full', price: 1000, hasSide: false },
                         { name: 'Beef (Single)', protein: 'Beef', size: 'Single', price: 850, hasSide: true },
-                        { name: 'Beef (Full)', protein: 'Beef', size: 'Full', price: 1150, hasSide: false },
-                        { name: 'Sea Food (Single)', protein: 'Sea Food', size: 'Single', price: 900, hasSide: true },
-                        { name: 'Sea Food (Full)', protein: 'Sea Food', size: 'Full', price: 1250, hasSide: false }
+                        { name: 'Beef (Full)', protein: 'Beef', size: 'Full', price: 1150, hasSide: false }
                     ]
                 },
                 {
                     id: 'crispy_sesame_beef',
                     category: 'main_course',
                     name: 'Crispy Sesame Beef',
-                    desc: 'Shredded beef or seafood crispy fried, tossed in caramelized sweet chili glaze & toasted sesame.',
+                    desc: 'Shredded beef or fish crispy fried, tossed in caramelized sweet chili glaze & toasted sesame.',
                     image: 'images/crispy_sesame_beef.jpg',
                     isPopular: false,
                     type: 'main_course_variant',
                     variants: [
                         { name: 'Beef (Single)', protein: 'Beef', size: 'Single', price: 850, hasSide: true },
-                        { name: 'Beef (Full)', protein: 'Beef', size: 'Full', price: 1150, hasSide: false },
-                        { name: 'Sea Food (Single)', protein: 'Sea Food', size: 'Single', price: 900, hasSide: true },
-                        { name: 'Sea Food (Full)', protein: 'Sea Food', size: 'Full', price: 1250, hasSide: false }
+                        { name: 'Beef (Full)', protein: 'Beef', size: 'Full', price: 1150, hasSide: false }
                     ]
                 }
             ]
@@ -1357,7 +1367,9 @@
             let filtered = MENU_DATA.items;
 
             // Filter by Category
-            if (currentCategory !== 'all') {
+            if (currentCategory === 'chef_recommendation') {
+                filtered = filtered.filter(item => item.isChefRecommendation === true);
+            } else if (currentCategory !== 'all') {
                 filtered = filtered.filter(item => item.category === currentCategory);
             }
 
