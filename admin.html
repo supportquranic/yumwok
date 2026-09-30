@@ -432,6 +432,8 @@
                     availability = {};
                     data.forEach(row => {
                         availability[row.product_id] = row.is_available;
+                        if (row.product_id.includes('bankok')) availability[row.product_id.replace('bankok', 'bangkok')] = row.is_available;
+                        if (row.product_id.includes('bangkok')) availability[row.product_id.replace('bangkok', 'bankok')] = row.is_available;
                     });
                 }
             } catch (e) {
@@ -654,17 +656,52 @@
 
         async function toggleAvailability(id, makeAvailable) {
             availability[id] = makeAvailable;
+            if (id.includes('bankok')) availability[id.replace('bankok', 'bangkok')] = makeAvailable;
+            if (id.includes('bangkok')) availability[id.replace('bangkok', 'bankok')] = makeAvailable;
             renderProducts();
 
             if (supabaseClient) {
                 try {
-                    const { error } = await supabaseClient
-                        .from('product_availability')
-                        .upsert({
-                            product_id: id,
+                    const updates = [{
+                        product_id: id,
+                        is_available: makeAvailable,
+                        updated_at: new Date().toISOString()
+                    }];
+                    
+                    if (id.includes('bankok')) {
+                        updates.push({
+                            product_id: id.replace('bankok', 'bangkok'),
                             is_available: makeAvailable,
                             updated_at: new Date().toISOString()
-                        }, { onConflict: 'product_id' });
+                        });
+                    } else if (id.includes('bangkok')) {
+                        updates.push({
+                            product_id: id.replace('bangkok', 'bankok'),
+                            is_available: makeAvailable,
+                            updated_at: new Date().toISOString()
+                        });
+                    }
+
+                    // Also update parent dish ID if this is a main course
+                    const prod = ADMIN_PRODUCTS.find(p => p.id === id);
+                    if (prod && prod.dishId && makeAvailable) {
+                        updates.push({
+                            product_id: prod.dishId,
+                            is_available: true,
+                            updated_at: new Date().toISOString()
+                        });
+                        if (prod.dishId.includes('bankok')) {
+                            updates.push({
+                                product_id: prod.dishId.replace('bankok', 'bangkok'),
+                                is_available: true,
+                                updated_at: new Date().toISOString()
+                            });
+                        }
+                    }
+
+                    const { error } = await supabaseClient
+                        .from('product_availability')
+                        .upsert(updates, { onConflict: 'product_id' });
 
                     if (error) console.error('Supabase availability update error:', error);
                 } catch(e) {
@@ -675,16 +712,44 @@
         }
 
         async function setAllAvailability(available) {
-            ADMIN_PRODUCTS.forEach(p => { availability[p.id] = available; });
+            ADMIN_PRODUCTS.forEach(p => { 
+                availability[p.id] = available; 
+                if (p.id.includes('bankok')) availability[p.id.replace('bankok', 'bangkok')] = available;
+                if (p.id.includes('bangkok')) availability[p.id.replace('bangkok', 'bankok')] = available;
+            });
             renderProducts();
 
             if (supabaseClient) {
                 try {
-                    const rows = ADMIN_PRODUCTS.map(p => ({
-                        product_id: p.id,
-                        is_available: available,
-                        updated_at: new Date().toISOString()
-                    }));
+                    const rows = [];
+                    ADMIN_PRODUCTS.forEach(p => {
+                        rows.push({
+                            product_id: p.id,
+                            is_available: available,
+                            updated_at: new Date().toISOString()
+                        });
+                        if (p.id.includes('bankok')) {
+                            rows.push({
+                                product_id: p.id.replace('bankok', 'bangkok'),
+                                is_available: available,
+                                updated_at: new Date().toISOString()
+                            });
+                        }
+                        if (p.dishId) {
+                            rows.push({
+                                product_id: p.dishId,
+                                is_available: available,
+                                updated_at: new Date().toISOString()
+                            });
+                            if (p.dishId.includes('bankok')) {
+                                rows.push({
+                                    product_id: p.dishId.replace('bankok', 'bangkok'),
+                                    is_available: available,
+                                    updated_at: new Date().toISOString()
+                                });
+                            }
+                        }
+                    });
 
                     const { error } = await supabaseClient
                         .from('product_availability')

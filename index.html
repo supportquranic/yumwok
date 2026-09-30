@@ -1298,32 +1298,56 @@
         // --- AVAILABILITY HELPER FUNCTIONS ---
         function isItemFullyUnavailable(item) {
             if (!item) return false;
-            if (unavailableItems.has(item.id)) return true;
-            if (item.variants && item.variants.length > 0 && item.category === 'main_course') {
+            
+            // For Main Courses: availability is determined purely by whether ALL its protein options are disabled
+            if (item.category === 'main_course' && item.variants && item.variants.length > 0) {
                 const proteins = [...new Set(item.variants.map(v => v.protein).filter(Boolean))];
                 if (proteins.length > 0) {
-                    const allProteinsDisabled = proteins.every(p => unavailableItems.has(`${item.id}_${p.toLowerCase().replace(/\s+/g, '_')}`));
-                    if (allProteinsDisabled) return true;
+                    const allProteinsDisabled = proteins.every(p => {
+                        const pClean = p.toLowerCase().replace(/\s+/g, '_');
+                        const key1 = `${item.id}_${pClean}`;
+                        const key2 = `${item.id.replace('bankok', 'bangkok')}_${pClean}`;
+                        const key3 = `${item.id.replace('bangkok', 'bankok')}_${pClean}`;
+                        return unavailableItems.has(key1) || unavailableItems.has(key2) || unavailableItems.has(key3);
+                    });
+                    return allProteinsDisabled;
                 }
             }
+
+            // For other items (or fixed dishes)
+            if (unavailableItems.has(item.id)) return true;
+            if (item.id.includes('bankok') && unavailableItems.has(item.id.replace('bankok', 'bangkok'))) return true;
+            if (item.id.includes('bangkok') && unavailableItems.has(item.id.replace('bangkok', 'bankok'))) return true;
             return false;
         }
 
         function isVariantAvailable(item, variant) {
             if (!item || !variant) return false;
-            if (unavailableItems.has(item.id)) return false;
-            if (variant.protein) {
-                const proteinKey = `${item.id}_${variant.protein.toLowerCase().replace(/\s+/g, '_')}`;
-                if (unavailableItems.has(proteinKey)) return false;
+            if (item.category === 'main_course' && variant.protein) {
+                const pClean = variant.protein.toLowerCase().replace(/\s+/g, '_');
+                const key1 = `${item.id}_${pClean}`;
+                const key2 = `${item.id.replace('bankok', 'bangkok')}_${pClean}`;
+                const key3 = `${item.id.replace('bangkok', 'bankok')}_${pClean}`;
+                if (unavailableItems.has(key1) || unavailableItems.has(key2) || unavailableItems.has(key3)) {
+                    return false;
+                }
+                return true;
             }
+            if (unavailableItems.has(item.id)) return false;
+            if (item.id.includes('bankok') && unavailableItems.has(item.id.replace('bankok', 'bangkok'))) return false;
+            if (item.id.includes('bangkok') && unavailableItems.has(item.id.replace('bangkok', 'bankok'))) return false;
             return true;
         }
 
         function cleanCartUnavailableItems() {
             const before = cart.length;
-            cart = cart.filter(item => {
-                if (unavailableItems.has(item.id)) return false;
-                if (item.availKey && unavailableItems.has(item.availKey)) return false;
+            cart = cart.filter(cartItem => {
+                const item = MENU_DATA.items.find(i => i.id === cartItem.id || (cartItem.id && i.id.replace('bankok', 'bangkok') === cartItem.id.replace('bankok', 'bangkok')));
+                if (!item) return true;
+                if (isItemFullyUnavailable(item)) return false;
+                if (cartItem.variant && cartItem.variant.protein) {
+                    if (!isVariantAvailable(item, cartItem.variant)) return false;
+                }
                 return true;
             });
             if (cart.length !== before) {
